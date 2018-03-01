@@ -1,0 +1,12 @@
+@import 'mixin';
+
+.to-top {
+  height: 50px;
+  line-height: 2;
+  width: 50px;
+}
+
+// add to align text to the middle of the navbar
+.navbar-nav .nav-link {
+  line-height: 2.1;
+}

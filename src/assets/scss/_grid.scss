@@ -1,0 +1,51 @@
+@each $breakpoint in map-keys($grid-breakpoints) {
+    @include media-breakpoint-up($breakpoint) {
+        $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+
+        .grid#{$infix} {
+            display: grid;
+            grid-auto-rows: auto;
+            grid-gap: $grid-gutter-width / 2;
+            grid-template-columns: repeat($grid-columns, 1fr);
+            margin: 0 auto;
+
+            &-auto-fit {
+                grid-template-columns: repeat(
+                    auto-fit,
+                    minmax($grid-auto-fit-min-width, $grid-auto-fit-max-width)
+                );
+            }
+
+            &-auto-fill {
+                grid-template-columns: repeat(
+                    auto-fit,
+                    minmax($grid-auto-fill-min-width, $grid-auto-fill-max-width)
+                );
+            }
+
+            &-explicit-row {
+                grid-template-rows: repeat($grid-rows, $grid-row-explicit-size);
+            }
+
+            &-auto-flow-dense {
+                grid-auto-flow: dense;
+            }
+
+            &-auto-flow-row {
+                grid-auto-flow: row;
+            }
+
+            &-auto-flow-column {
+                grid-auto-flow: column;
+            }
+        }
+
+        .d#{$infix}-subgrid {
+            display: subgrid;
+        }
+    }
+}
+
+@include make-grid-columns-and-rows();
+
+// TODO: Make and test a reliable fallback for browsers without grid

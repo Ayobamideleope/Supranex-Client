@@ -1,0 +1,29 @@
+@mixin make-bg-sets ($sets: $background-sets, $breakpoints: $grid-breakpoints) {
+  @each $breakpoint in map-keys($breakpoints) {
+    @include media-breakpoint-up($breakpoint) {
+      $infix: breakpoint-infix($breakpoint, $breakpoints);
+
+      @each $set-name, $set in $sets {
+        $set-length: length($set);
+        $j: 0;
+
+        @each $k in map-keys($set) {
+          $j: $j + 1;
+          // @error 'j is #{j}, k is #{$k}, set-name is #{$set-name}, set-length is #{$set-length} and value is #{map-get($set, $k)}';
+          /* stylelint-disable-next-line max-nesting-depth */
+          .bg-set#{$infix}-#{$set-name} {
+            /* stylelint-disable-next-line max-nesting-depth */
+            &:nth-child(#{$set-length}n + #{$j - 1}) {
+              background: map-get($set, $k);
+            }
+
+            /* stylelint-disable-next-line max-nesting-depth */
+            &-#{$k} {
+              background: map-get($set, $k) !important;
+            }
+          }
+        }
+      }
+    }
+  }
+}

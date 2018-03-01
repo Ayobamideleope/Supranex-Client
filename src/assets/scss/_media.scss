@@ -1,0 +1,150 @@
+@import 'mixin';
+// FIXME: .media not showing well in xs tier
+
+.media-cont {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    @include col-md-only {
+        width: calc(100% - 30px); // 1/2 of $grid-gutter-size
+    }
+    @include media-breakpoint-down(sm) {
+        flex-direction: column; // 1/2 of $grid-gutter-size
+        width: calc(100% - 30px);
+    }
+    @include col-xs-only {
+        width: calc(100% - 15px);
+    }
+}
+
+.media {
+    background: $white;
+    border: 1px solid darken($text-bright, 5%);
+    border-radius: to-rem(2px);
+    height: 7.2rem;
+    max-height: fit-content;
+    padding: 0;
+    position: relative;
+    width: 100%;
+    @include col-md-only {
+        width: calc(50% - 15px); // 1/2 of $grid-gutter-size
+    }
+    @include col-lg {
+        width: calc(50% - 30px); // $grid-gutter-size
+    }
+    @include media-breakpoint-down(sm) {
+        & + & {
+            margin-top: 30px;
+        }
+    }
+    @include col-xs-only {
+        flex-direction: column;
+    }
+
+    & + & + & {
+        @include col-md {
+            margin-top: $grid-gutter-width / 2;
+        }
+        @include col-lg {
+            margin-top: $grid-gutter-width;
+        }
+    }
+
+    &:hover {
+        .media-overlay {
+            opacity: 1;
+        }
+
+        .media-overlay-item {
+            transform: translateX(0);
+        }
+
+        .media-content-title {
+            color: $brand-primary;
+        }
+
+        .info-item {
+            text-decoration: underline;
+            text-decoration-color: $text-dark;
+            text-decoration-skip: ink;
+        }
+        //.media-content {
+        //  background: $text-bright;
+        //  border-bottom-left-radius: 5px;
+        //  border-bottom-right-radius: 5px;
+        //  color: $text-dark;
+        //  transform: translateY(100%);
+        //}
+        //.media-footer {
+        //  opacity: 0;
+        //  transition: .3s;
+        //}
+    }
+}
+
+.media-img {
+    height: 100%;
+    object-fit: cover;
+    padding: 0;
+    width: 100%;
+    @include col-xs-only {
+        max-height: 15rem;
+    }
+}
+
+.media-content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 5px 10px 0 15px;
+    transition: 0.5s ease-in;
+}
+
+.media-content-title {
+    &:link,
+    &,
+    &:visited {
+        color: $text-color;
+    }
+
+    &:hover,
+    &:active {
+        color: $text-dark;
+    }
+    display: block;
+    font-size: 1.2rem;
+    margin-right: 0;
+    padding: 0;
+    text-align: right; // So as to align to to and right of the media container's padding
+    text-decoration-line: none;
+}
+
+.media-content-desc {
+    font-size: 0.7rem;
+    margin-bottom: 0.5rem;
+    overflow: hidden;
+    text-align: right;
+    text-overflow: ellipsis;
+}
+
+.media-content-info {
+    display: flex;
+    flex: 1;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
+
+.info-item {
+    & + & {
+        margin-left: 1rem;
+    }
+}
+
+.media-content-footer {
+    background-color: $brand-primary;
+    color: darken($text-bright, 10%);
+    margin: 0 -10px 0 -15px;
+    padding: 0.1rem to-rem(10px) 0.1rem 0.1rem; // 10px right So as to conform with the padding of the title
+    text-align: right;
+    transition: 0.2s 0.5s;
+}

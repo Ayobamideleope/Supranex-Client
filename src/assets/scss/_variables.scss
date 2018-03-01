@@ -1,0 +1,197 @@
+// Variables
+//
+// Copy settings from this file into the provided `_custom.scss` to override
+// the Bootstrap defaults without modifying key, versioned files.
+//
+// Variables should follow the `$component-state-property-size` formula for
+// consistent naming. Ex: $nav-link-disabled-color and $modal-content-box-shadow-xs.
+
+// Table of Contents
+//
+// Color system
+// Options
+// Spacing
+// Body
+// Links
+// Paragraphs
+// Grid breakpoints
+// Grid containers
+// Grid columns
+// Fonts
+// Components
+// Tables
+// Buttons
+// Forms
+// Dropdowns
+// Z-index master list
+// Navs
+// Navbar
+// Pagination
+// Jumbotron
+// Form states and alerts
+// Cards
+// Tooltips
+// Popovers
+// Badges
+// Modals
+// Alerts
+// Progress bars
+// List group
+// Image thumbnails
+// Figures
+// Breadcrumbs
+// Carousel
+// Close
+// Code
+
+//
+// Color system
+//
+
+$white: #fff;
+$gray-100: #f8f9fa;
+$gray-200: #e9ecef;
+$gray-300: #dee2e6;
+$gray-400: #ced4da;
+$gray-500: #adb5bd;
+$gray-600: #868e96;
+$gray-700: #495057;
+$gray-800: #343a40;
+$gray-900: #212529;
+$black: #000;
+
+
+$blue: #007bff;
+$red: #dc3545;
+$yellow: #f7931a;
+$green: #28a745;
+$cyan: #17a2b8;
+
+$brand-primary: $blue;
+$brand-primary-dark: darken($color: $brand-primary, $amount: 37%);
+$brand-secondary: $gray-600;
+$text-bright: $gray-200;
+
+$theme-colors: (
+  primary: $brand-primary,
+  secondary: $brand-secondary,
+  success: $green,
+  info: $cyan,
+  warning: $yellow,
+  danger: $red,
+  light: $gray-100,
+  dark: $gray-800
+);
+
+// Options
+// Quickly modify global styling by enabling or disabling optional features.
+$enable-shadows: true;
+$enable-gradients: true;
+$enable-transitions: true;
+$enable-hover-media-query: true;
+// Grid breakpoints
+
+//
+// Define the minimum dimensions at which your layout will change,
+// adapting to different screen sizes, for use in media queries.
+$grid-breakpoints: (
+  xs: 0,
+  sm: 600px,
+  md: 960px,
+  lg: 1264px,
+  xl: 1904px
+);
+// Gradients
+$gradient-mix: linear-gradient(to bottom right, $blue, $green 70%, $yellow);
+$gradient-mix-2: linear-gradient(170deg, $blue, $green 70%, $yellow);
+$gradient-mix-transparent: linear-gradient(
+  to bottom right,
+  rgba($blue, 0.4),
+  rgba($green, 0.4) 70%,
+  rgba($yellow, 0.4)
+),
+  linear-gradient(rgba($black, 0.3), rgba($black, 0.2));
+$gradient-mix-transparent-2: radial-gradient(
+  rgba($black, 0.6) 1%,
+  rgba($black, 0.6) 20%,
+  rgba($black, 0) 90%
+),
+  linear-gradient(
+  to bottom right,
+  rgba($blue, 0.4),
+  rgba($green, 0.4) 70%,
+  rgba($yellow, 0.4)
+),
+  linear-gradient(rgba($black, 0.1), rgba($black, 0.2));
+// Backgrounds
+$body-bg: $white;
+// Spacing
+$spacer: 1rem;
+$spacers: (
+  0: 0,
+  1: ($spacer * 0.25),
+  2: ($spacer * 0.5),
+  3: $spacer,
+  4: ($spacer * 1.5),
+  5: ($spacer * 3),
+  6: ($spacer * 5),
+  7: ($spacer * 8),
+  8: ($spacer * 12)
+);
+// This variable affects the `.h-*` and `.w-*` classes.
+$sizes: (
+  25: 25%,
+  50: 50%,
+  75: 75%,
+  100: 100%
+);
+// Grid System
+// Set the number of columns and specify the width of the gutters.
+// no of explicit row for .grid-explicit-row
+$grid-rows: 12;
+$grid-auto-fit-min-width: 3rem;
+$grid-auto-fit-max-width: 1fr;
+$grid-auto-fill-min-width: 3rem;
+$grid-auto-fill-max-width: 1fr;
+$grid-row-explicit-size: 3rem;
+// Components
+$background-sets: (
+  1: (a: $white, b: $gray-200),
+  2: (a: $brand-primary, b: $gray-100),
+  3: (a: rgba($gray-400, 0.3))
+);
+// Borders
+$border-width: 0.1rem;
+$border-color: $gray-300;
+$border-radius: 0.15rem;
+$border-radius-lg: 0.2rem;
+$border-radius-sm: 0.1rem;
+// Fonts
+// Font, line-height, and color for body text, headings, and more.
+$font-family-sans-serif-heading: 'Lato', -apple-system, BlinkMacSystemFont,
+  'Segoe UI', Roboto, 'Lato', Arial, sans-serif, 'Apple Color Emoji',
+  'Segoe UI Emoji', 'Segoe UI Symbol';
+$font-family-sans-serif: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+  Roboto, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji',
+  'Segoe UI Emoji', 'Segoe UI Symbol';
+$headings-font-family: $font-family-sans-serif-heading;
+//
+// Warning: Avoid customizing these values. They're used for a bird's eye view
+// of components dependent on the z-axis and are designed to all work together.
+$zindex-dropdown: 1000;
+$zindex-sticky: 1020;
+$zindex-fixed: 1030;
+$zindex-modal-backdrop: 1040;
+$zindex-modal: 1050;
+$zindex-popover: 1060;
+$zindex-tooltip: 1070;
+$transition-base: all 0.2s ease-in-out;
+$transition-fade: opacity 0.15s linear;
+$transition-collapse: height 0.35s ease;
+$img-logo: '/images/pd-logo.jpg';
+$img-overlay: linear-gradient(rgba($black, 0.3), rgba($black, 0.5)),
+  linear-gradient(
+    to bottom right,
+    rgba($brand-primary-dark, 0.3),
+    rgba($brand-primary, 0.3)
+  );
