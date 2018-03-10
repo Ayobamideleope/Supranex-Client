@@ -2,21 +2,29 @@
   <div>
 
     <!-- Welcome  -->
-    <section id="get-started" class="pt-7 pt-md-8 pb-5" style="margin-top: -65px;">
+    <section id="get-started" class="pt-6 pt-md-6 pb-5" style="margin-top: -65px;">
       <v-container dark>
         <v-layout wrap justify-center>
 
-          <v-flex xs10 tag="h2" :class="{'pb-3 text-xs-center grey--text text--lighten-5 font-all-caps': true, 'display-1': $vuetify.breakpoint.smAndDown, 'display-2': $vuetify.breakpoint.mdAndUp}" dark>Save your money in
-            <span class="accent--text">Supranex</span> Bitcoin Savings Account</v-flex>
-          <v-flex xs10 tag="p" class="text-xs-center grey--text text--lighten-4" dark>And earn
+          <v-flex xs10 tag="p" class="headline font-weight-bold text-xs-center accent--text mt-3 mt-sm-4 mb-1" dark>
+            <em>Save Your Money in</em>
+          </v-flex>
+          <v-flex xs10 tag="p" class="headline font-weight-bold text-xs-center primary--text mb-1" dark style="letter-spacing: 1px !important">
+            Supranex Bitcoin Saving Accounts
+          </v-flex>
+          <v-flex xs10 tag="p" class="headline text-xs-center grey--text text--lighten-4 mb-5" dark>And EARN
             <span class="accent--text">100% guaranteed</span> interest anually.</v-flex>
 
-          <v-flex xs6 sm4 md3 class="px-3 my-3">
-            <v-text-field prefix="$" dark v-model="form.saving.input" placeholder="You Save" :error-messages="errors.collect('saving-input')" v-validate="'required|numeric|min_value:100'" data-vv-name="saving-input" data-vv-as="Input" required></v-text-field>
+          <v-flex xs6 sm4 md3 class="">
+            <v-text-field dark v-model="form.saving.input" placeholder="You Save" :error-messages="errors.collect('saving-input')" v-validate="'required|numeric|min_value:100'" data-vv-name="saving-input" data-vv-as="Input" required solo class="border transparent elevation-0 rounded-0 border-right-0" style="border-color: #184774 !important;"></v-text-field>
           </v-flex>
 
-          <v-flex xs6 sm4 md3 class="px-3 my-3">
-            <v-text-field prefix="$" dark v-model="savingOutput" placeholder="You Get" :error-messages="errors.collect('saving-output')" data-vv-name="saving-output" disabled></v-text-field>
+          <v-flex xs6 sm4 md3 class="">
+            <v-text-field dark v-model="savingOutput" placeholder="You Get" :error-messages="errors.collect('saving-output')" data-vv-name="saving-output" disabled solo class="border transparent elevation-0 rounded-0" style="border-color: #184774 !important;"></v-text-field>
+          </v-flex>
+
+          <v-flex xs12 tag="p" class="text-xs-center grey--text text--lighten-4 caption" dark>
+            **Savings Calculator**
           </v-flex>
 
           <v-flex xs12 tag="p" class="text-xs-center grey--text text--lighten-4" dark>
@@ -24,8 +32,10 @@
           </v-flex>
           <v-flex xs12 tag="p" class="text-xs-center grey--text text--lighten-4" dark>You can withdraw your funds at any time</v-flex>
 
+          <v-flex xs12 tag="p" class="body-2 text-xs-center grey--text text--lighten-4" dark>It pays to save in Supranex Bitcoin Savings Account</v-flex>
+
           <v-flex xs10 class="mt-5 child-flex-none d-flex justify-center">
-            <v-btn large class="mt-3" color="accent" dark @click="redirectToDepositPage">Save NOW</v-btn>
+            <v-btn large class="mt-3" depressed outline dark @click="redirectToDepositPage">Save NOW</v-btn>
           </v-flex>
 
           <v-flex xs10 class="mt-5 child-flex-none d-flex justify-center">
@@ -335,7 +345,7 @@ export default {
       if (this.errors.collect('saving-input').length > 0) return '';
       const deposit = Number(this.form.saving.input);
       if (!deposit) return '';
-      const interest = deposit * 0.6;
+      const interest = deposit * this.$store.getters.ratePerYear;
       let total = deposit + interest;
       return this.numberToCurrencyFormat(total.toFixed(2));
     }
@@ -374,16 +384,7 @@ export default {
 </script>
 
 <style lang="scss">
-// @import '../assets/scss/_variables';
-
-// .section-about {
-//   background: radial-gradient(
-//     circle closest-corner,
-//     lighten($brand-primary, 7%) 30%,
-//     lighten($brand-primary, 3%) 40%,
-//     $brand-primary 41%,
-//     $brand-primary 60%,
-//     darken($brand-primary, 5%)
-//   );
-// }
+#get-started {
+  background-color: #2e5785;
+}
 </style>

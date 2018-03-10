@@ -3,6 +3,7 @@
     <v-container class="position-relative">
       <!-- <v-layout wrap justify-space-around class="child-flex-none"> -->
       <v-layout wrap justify-space-around>
+        <v-flex xs10 tag="h2" class="display-1 font-weight-bold mt-3 mb-5 text-xs-center">Dashboard</v-flex>
         <v-flex xs10 sm4 md3 class="mb-5">
           <v-card style="background-image: url('/static/images/overlays/08.png'); background-repeat: repeat;" color="success" class="h-100 d-flex flex-column white--text" raised>
             <v-card-title primary-title class="bg-transparent-dark justify-center">
@@ -18,11 +19,11 @@
         <v-flex xs10 sm3 class="mb-5">
           <v-card style="background-image: url('/static/images/overlays/08.png'); background-repeat: repeat;" color="info" class="h-100 d-flex flex-column white--text" raised>
             <v-card-title primary-title class="bg-transparent-dark justify-center">
-              <h2 class="headline text-xs-center text-elevation" v-text="countdownToNext"></h2>
+              <h2 class="headline text-xs-center text-elevation">$ {{ interestsAccured }}</h2>
             </v-card-title>
             <v-divider dark class="flex-none"></v-divider>
             <v-card-text class="flex-none font-all-caps bg-transparent-dark">
-              Countdown To next
+              Interests Accured
             </v-card-text>
           </v-card>
         </v-flex>
@@ -61,6 +62,9 @@
         <v-flex xs12 sm5 class="mb-5">
           <p class="body-2" v-text="$store.getters.user.email"></p>
           <v-btn flat color="accent" class="text-capitalize mt-0" style="margin-left: -16px" to="/change-password">Change Password</v-btn>
+
+          <p class="body-2 mt-3 mb-0">Referral Link</p>
+          <a :href="`https://www.supranex.com/signup?referrer=${this.$store.getters.user.uid}`" target="_blank" v-text="`https://www.supranex.com/signup?referrer=${this.$store.getters.user.uid}`"></a>
         </v-flex>
 
         <v-flex xs12 sm5 v-if="!$store.getters.user.emailVerified">
@@ -116,6 +120,21 @@ export default {
           .toFixed(2)
       );
     },
+    interestsAccured() {
+      if (!this.activeDeposits) {
+        const zero = 0;
+        return zero.toFixed(2);
+      }
+      return this.numberToCurrencyFormat(
+        this.activeDeposits
+          .reduce(
+            (accumulate, deposit) =>
+              accumulate + this.interestAccumulated(deposit),
+            0
+          )
+          .toFixed(2)
+      );
+    },
     countdownToNext() {
       if (!this.activeDeposits || !this.activeDeposits[0]) {
         return 'No Active Deposit';
@@ -151,6 +170,20 @@ export default {
   destroyed() {},
 
   methods: {
+    interestAccumulated(deposit) {
+      if (!deposit) {
+        const zero = 0;
+        return zero.toFixed(2);
+      }
+      const amount = deposit.amount_deposited;
+
+      const ratePerDay = this.$store.getters.ratePerYear / 365;
+      let noOfDays = 0;
+      if (deposit.date_confirmed) {
+        noOfDays = (new Date() - deposit.date_confirmed) / 86400000;
+      }
+      return amount * ratePerDay * noOfDays; // interest
+    },
     numberToCurrencyFormat(n) {
       return String(n).replace(/(\d)(?=(\d{3})+\.)/g, '$1, ');
     }

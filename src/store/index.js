@@ -34,7 +34,9 @@ export const store = new Vuex.Store({
     specificDeposit: {
       state: '',
       data: null
-    }
+    },
+
+    ratePerYear: 1
   },
 
   mutations: {
@@ -46,6 +48,9 @@ export const store = new Vuex.Store({
     },
     setUserEmailVerificationSent(state, payload) {
       state.userEmailVerificationSent = payload;
+    },
+    setOtherUserData(state, payload) {
+      state.user = Object.assign(state.user, payload);
     },
 
     toggleSnackbar(state, payload) {
@@ -98,7 +103,7 @@ export const store = new Vuex.Store({
   },
 
   actions: {
-    signin({ commit, getters, state }, payload) {
+    signin({ commit, state, dispatch }, payload) {
       commit('signin', payload);
 
       commit('setSnackbar', {
@@ -111,6 +116,8 @@ export const store = new Vuex.Store({
       } else {
         router.replace({ path: '/dashboard' });
       }
+
+      dispatch('fetchOtherUserData');
     },
     signout({ commit }) {
       // console.log('signed out');
@@ -133,6 +140,27 @@ export const store = new Vuex.Store({
           });
         });
     },
+    addReferrerToDb({ getters }, { referrer }) {
+      db
+        .collection('users')
+        .doc(getters.user.uid)
+        .update({
+          referrer
+        });
+    },
+    fetchOtherUserData({ getters, commit }) {
+      // console.log('fetching specific from db');
+
+      db
+        .collection('deposits-test')
+        .doc(getters.user.uid)
+        .get()
+        .then(doc => {
+          if (doc.exists) {
+            commit('setOtherUserData', doc.data());
+          }
+        });
+    },
 
     toggleSnackbar({ commit }, payload) {
       commit('toggleSnackbar', payload);
@@ -149,7 +177,8 @@ export const store = new Vuex.Store({
       db
         .collection('deposits-test')
         .where('uid', '==', state.user.uid)
-        .orderBy('date_initialized')
+        .orderBy('createdAt', 'desc')
+        .orderBy('updatedAt', 'desc')
         .onSnapshot(
           querySnapshot => {
             fetchedDeposits.splice(0, fetchedDeposits.length);
@@ -314,6 +343,10 @@ export const store = new Vuex.Store({
 
     specificDepositState(state) {
       return state.specificDeposit.state;
+    },
+
+    ratePerYear(state) {
+      return state.ratePerYear;
     }
   }
 });

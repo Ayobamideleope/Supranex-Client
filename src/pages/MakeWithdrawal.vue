@@ -239,7 +239,7 @@ export default {
 
       const amount = this.deposit.amount_deposited;
 
-      const ratePerDay = 0.6 / 365;
+      const ratePerDay = this.$store.getters.ratePerYear / 365;
       const noOfDays = (new Date() - this.deposit.date_confirmed) / 86400000;
       const interest = amount * ratePerDay * noOfDays;
 
@@ -266,7 +266,7 @@ export default {
       }
       const amount = this.deposit.amount_deposited;
 
-      const ratePerYear = 0.6;
+      const ratePerYear = this.$store.getters.ratePerYear;
       const interest = amount * ratePerYear;
 
       return this.numberToCurrencyFormat((amount + interest).toFixed(2));
@@ -314,7 +314,8 @@ export default {
         .collection('deposits-test')
         .doc(this.deposit.id)
         .update({
-          status: 'Withdrawing'
+          status: 'Withdrawing',
+          updatedAt: new Date()
         })
         .then(docRef => {
           this.formIsProcessing = false;

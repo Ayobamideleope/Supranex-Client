@@ -68,7 +68,8 @@ $green: #28a745;
 $cyan: #17a2b8;
 
 $brand-primary: $blue;
-$brand-primary-dark: darken($color: $brand-primary, $amount: 37%);
+// $brand-primary-dark: darken($color: $brand-primary, $amount: 37%);
+$brand-primary-dark: #2e5785;
 $brand-secondary: $gray-600;
 $text-bright: $gray-200;
 

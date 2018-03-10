@@ -12,6 +12,10 @@ import MakeDeposit from '@/pages/MakeDeposit';
 import ViewDeposit from '@/pages/ViewDeposit';
 import Deposits from '@/pages/Deposits';
 import MakeWithdrawal from '@/pages/MakeWithdrawal';
+import AboutPage from '@/pages/AboutPage';
+import ReferralBonusPage from '@/pages/ReferralBonusPage';
+import FAQPage from '@/pages/FAQPage';
+import HowItWorks from '@/pages/HowItWorks';
 
 // @ts-check
 
@@ -100,6 +104,26 @@ const router = new Router({
         requiresAuth: true,
         requiresUserVerified: true
       }
+    },
+    {
+      path: '/about',
+      name: 'About',
+      component: AboutPage
+    },
+    {
+      path: '/referral-bonus',
+      name: 'ReferralBonus',
+      component: ReferralBonusPage
+    },
+    {
+      path: '/faq',
+      name: 'FAQ',
+      component: FAQPage
+    },
+    {
+      path: '/how-it-works',
+      name: 'HowItWorks',
+      component: HowItWorks
     }
   ],
   scrollBehavior(to, from, savedPosition) {

@@ -44,7 +44,6 @@ new Vue({
         this.$store.dispatch('signin', {
           email: user.email,
           emailVerified: user.emailVerified,
-          isAnonymous: user.isAnonymous,
           uid: user.uid,
           providerData: user.providerData
         });

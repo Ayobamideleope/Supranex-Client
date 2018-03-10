@@ -151,6 +151,50 @@
           </v-list-tile-content>
         </v-list-tile>
       </v-list>
+
+      <v-list class="pt-0 bg-transparent-dark">
+        <v-list-tile to="/how-it-works" active-class="default-class accent--text" class="grey--text text--lighten-2">
+          <v-list-tile-action>
+            <v-icon class="grey--text text--lighten-2">fa-question-mark</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title class="">How It Works</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+      </v-list>
+
+      <v-list class="pt-0 bg-transparent-dark">
+        <v-list-tile to="/referral-bonus" active-class="default-class accent--text" class="grey--text text--lighten-2">
+          <v-list-tile-action>
+            <v-icon class="grey--text text--lighten-2">fa-users</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title class="">5% Referral Bonus</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+      </v-list>
+
+      <v-list class="pt-0 bg-transparent-dark">
+        <v-list-tile to="/faq" active-class="default-class accent--text" class="grey--text text--lighten-2">
+          <v-list-tile-action>
+            <v-icon class="grey--text text--lighten-2">fa-comment</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title class="">FAQ</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+      </v-list>
+
+      <v-list class="pt-0 bg-transparent-dark">
+        <v-list-tile to="/about" active-class="default-class accent--text" class="grey--text text--lighten-2">
+          <v-list-tile-action>
+            <v-icon class="grey--text text--lighten-2">fa-exclamation</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title class="">About</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+      </v-list>
     </v-navigation-drawer>
     <!-- End App Drawer -->
   </v-app>

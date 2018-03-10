@@ -40,7 +40,16 @@
               </ul>
             </p>
 
-            <v-layout justify-space-between>
+            <!-- <v-layout wrap justify-space-around> -->
+            <p class="mt-3 mb-0 body-2">Were you referred by someone?</p>
+            <v-switch :label="showReferrer ? 'Yes' : 'No'" v-model="showReferrer" hide-details></v-switch>
+            <!-- </v-layout> -->
+
+            <transition name="fade-transition">
+              <v-text-field v-if="showReferrer" v-model="referrer" label="Referrer's ID" :error-messages="errors.collect('referrer')" v-validate="'alpha_num'" data-vv-name="referrer" required></v-text-field>
+            </transition>
+
+            <v-layout justify-space-between class="mt-4">
               <v-btn color="primary" round :loading="formIsProcessing" type="submit">Sign Up</v-btn>
 
               <v-btn flat round color="primary" to="/signin">Have an Account?</v-btn>
@@ -70,6 +79,8 @@ export default {
         confirmPassword: '',
         phone: ''
       },
+      referrer: '',
+      showReferrer: false,
       showSignupPassword: false,
       showSignupConfirmPassword: false,
       formIsProcessing: false
@@ -100,7 +111,12 @@ export default {
 
   watch: {},
 
-  created() {},
+  created() {
+    if (this.$route.query.referrer) {
+      this.referrer = this.$route.query.referrer;
+      this.showReferrer = true;
+    }
+  },
 
   destroyed() {},
 
@@ -143,6 +159,11 @@ export default {
                 textColor: 'success--text'
               });
               this.$store.dispatch('sendEmailVerification');
+              if (this.referrer) {
+                this.$store.dispatch('addReferrerToDb', {
+                  referrer: this.referrer
+                });
+              }
             })
             .catch(error => {
               this.formIsProcessing = false;

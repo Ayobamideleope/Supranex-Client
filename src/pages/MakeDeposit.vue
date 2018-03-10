@@ -123,7 +123,7 @@ export default {
       if (this.errors.collect('deposit_amount').length > 0) return '';
       const deposit = Number(this.form.deposit_amount);
       if (!deposit) return '';
-      const interest = deposit * 0.6;
+      const interest = deposit * this.$store.getters.ratePerYear;
       let total = deposit + interest;
       return this.numberToCurrencyFormat(total.toFixed(2));
     }
@@ -165,9 +165,12 @@ export default {
             .collection('deposits-test')
             .add({
               uid: this.$store.getters.user.uid,
+              user_email: this.$store.getters.user.email,
               date_initialized: new Date(),
               amount_deposited: Number(this.form.deposit_amount),
-              status: 'Initialized'
+              status: 'Initialized',
+              referrer_email: this.$store.getters.user.referrer,
+              createdAt: new Date()
             })
             .then(docRef => {
               this.depositRefId = docRef.id;

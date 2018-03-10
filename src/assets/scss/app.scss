@@ -14,7 +14,7 @@
   // background: rgba(darken($color: $brand-primary, $amount: 37%), 0.9) url('/static/images/overlays/07.png') repeat !important;
 }
 
-.toolbar--opaque, .navigation-drawer, #get-started, .bg-primary-dark {
+.toolbar--opaque, .navigation-drawer, .bg-primary-dark {
   background-color: $brand-primary-dark !important;
 }
 
