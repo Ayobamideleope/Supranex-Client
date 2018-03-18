@@ -155,7 +155,7 @@
       <v-list class="pt-0 bg-transparent-dark">
         <v-list-tile to="/how-it-works" active-class="default-class accent--text" class="grey--text text--lighten-2">
           <v-list-tile-action>
-            <v-icon class="grey--text text--lighten-2">fa-question-mark</v-icon>
+            <v-icon class="grey--text text--lighten-2">fa-list-ul</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
             <v-list-tile-title class="">How It Works</v-list-tile-title>
@@ -186,7 +186,7 @@
       </v-list>
 
       <v-list class="pt-0 bg-transparent-dark">
-        <v-list-tile to="/about" active-class="default-class accent--text" class="grey--text text--lighten-2">
+        <v-list-tile href="/about.html" active-class="default-class accent--text" class="grey--text text--lighten-2">
           <v-list-tile-action>
             <v-icon class="grey--text text--lighten-2">fa-exclamation</v-icon>
           </v-list-tile-action>

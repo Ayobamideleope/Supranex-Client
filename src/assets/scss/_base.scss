@@ -5,7 +5,11 @@ body {
   overflow-y: auto;
   position: relative;
   scrollbar-face-color: rgba($brand-secondary, 0.9);
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Montserrat', sans-serif !important;
+}
+
+* {
+  font-family: 'Montserrat', sans-serif !important;
 }
 
 .border-box {

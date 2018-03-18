@@ -2,7 +2,7 @@ import Vue from 'vue';
 import Router from 'vue-router';
 
 import { store } from '../store';
-import HomePage from '@/pages/HomePage';
+// import HomePage from '@/pages/HomePage';
 import Signup from '@/pages/Signup';
 import Signin from '@/pages/Signin';
 import ChangePassword from '@/pages/ChangePassword';
@@ -12,10 +12,10 @@ import MakeDeposit from '@/pages/MakeDeposit';
 import ViewDeposit from '@/pages/ViewDeposit';
 import Deposits from '@/pages/Deposits';
 import MakeWithdrawal from '@/pages/MakeWithdrawal';
-import AboutPage from '@/pages/AboutPage';
-import ReferralBonusPage from '@/pages/ReferralBonusPage';
-import FAQPage from '@/pages/FAQPage';
-import HowItWorks from '@/pages/HowItWorks';
+// import AboutPage from '@/pages/AboutPage';
+// import ReferralBonusPage from '@/pages/ReferralBonusPage';
+// import FAQPage from '@/pages/FAQPage';
+// import HowItWorks from '@/pages/HowItWorks';
 
 // @ts-check
 
@@ -24,10 +24,14 @@ Vue.use(Router);
 const router = new Router({
   mode: 'history',
   routes: [
+    // {
+    //   path: '/',
+    //   name: 'Home',
+    //   component: HomePage
+    // },
     {
       path: '/',
-      name: 'Home',
-      component: HomePage
+      redirect: '/dashboard'
     },
     {
       path: '/signup',
@@ -104,27 +108,27 @@ const router = new Router({
         requiresAuth: true,
         requiresUserVerified: true
       }
-    },
-    {
-      path: '/about',
-      name: 'About',
-      component: AboutPage
-    },
-    {
-      path: '/referral-bonus',
-      name: 'ReferralBonus',
-      component: ReferralBonusPage
-    },
-    {
-      path: '/faq',
-      name: 'FAQ',
-      component: FAQPage
-    },
-    {
-      path: '/how-it-works',
-      name: 'HowItWorks',
-      component: HowItWorks
     }
+    // {
+    //   path: '/about',
+    //   name: 'About',
+    //   component: AboutPage
+    // },
+    // {
+    //   path: '/referral-bonus',
+    //   name: 'ReferralBonus',
+    //   component: ReferralBonusPage
+    // },
+    // {
+    //   path: '/faq',
+    //   name: 'FAQ',
+    //   component: FAQPage
+    // },
+    // {
+    //   path: '/how-it-works',
+    //   name: 'HowItWorks',
+    //   component: HowItWorks
+    // }
   ],
   scrollBehavior(to, from, savedPosition) {
     if (to.hash) {

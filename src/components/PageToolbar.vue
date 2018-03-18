@@ -13,7 +13,7 @@
         <!-- </v-btn> -->
       </v-toolbar-side-icon>
 
-      <router-link to="/" exact><img src="/static/images/logo.png" alt="Supranex" style="height: 30px; width: auto"></router-link>
+      <a href="/"><img src="/static/images/logo.png" alt="Supranex" style="height: 30px; width: auto"></a>
 
       <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-sm-and-down">

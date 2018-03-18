@@ -79,9 +79,9 @@ export const store = new Vuex.Store({
     },
 
     setDeposits(state, payload) {
-      // console.dir(['about to set deposits', payload.data]);
+      console.dir(['about to set deposits', payload.data]);
       state.deposits.data = payload.data;
-      // console.dir(state.deposits);
+      console.dir(state.deposits);
     },
     setDepositsState(state, payload) {
       state.deposits.state = payload.state;
@@ -191,7 +191,7 @@ export const store = new Vuex.Store({
             commit('setDeposits', {
               data: fetchedDeposits
             });
-            // console.dir(['fetched Deposits', fetchedDeposits]);
+            console.dir(['fetched Deposits', fetchedDeposits]);
             commit('setDepositsState', { state: 'success' });
           },
           error => {

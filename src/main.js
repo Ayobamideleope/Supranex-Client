@@ -19,7 +19,7 @@ const unsync = sync(store, router);
 
 Vue.use(Vuetify, {
   theme: {
-    primary: '#007bff',
+    primary: '#2770b4',
     secondary: '#424242',
     accent: '#f7931a',
     error: '#dc3545',
