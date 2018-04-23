@@ -213,7 +213,7 @@
       </v-list>
     </v-navigation-drawer> -->
     <!-- End App Drawer -->
-    <v-navigation-drawer clipped fixed right class="drawer navigation-drawer--opaque" app v-model="dashboardDrawerEnabled" dark>
+    <v-navigation-drawer clipped fixed right class="drawer navigation-drawer--opaque" app v-model="dashboardDrawerEnabled" dark :disable-resize-watcher="true">
 
       <v-list dense class="pt-0 bg-transparent-dark">
         <v-list-tile href="/" exact active-class="default-class accent--text" class="grey--text text--lighten-2">
