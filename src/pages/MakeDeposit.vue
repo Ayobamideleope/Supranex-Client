@@ -43,7 +43,7 @@
           <v-card>
             <v-card-title class="headline">Make Deposit?</v-card-title>
             <v-card-text>Are you sure you want to make a deposit of
-              <span class="primary--text">$ {{ amountYouGet }}</span>. <br><br> Please note that you will have to transfer this
+              <span class="primary--text">${{ form.deposit_amount }}</span>. <br><br> Please note that you will have to transfer this
               <strong>exact</strong> amount to the address that will provided after your request has been made.
             </v-card-text>
             <v-card-actions>
@@ -63,7 +63,7 @@
             <p>
               Please kindly deposit
               <span class="primary--text">$ {{ amountDeposited }}</span> to this BTC Address:
-              <code>R38JDks99j</code>
+              <code>1JoeWHZ2QvRbfzwFg1mk8fH4ri1js3XPmo</code>
             </p>
 
             <p class="info--text">
@@ -120,7 +120,11 @@ export default {
 
   computed: {
     amountYouGet() {
-      if (this.errors.collect('deposit_amount').length > 0) return '';
+      if (
+        this.form.deposit_amount < 100 ||
+        this.errors.collect('deposit_amount').length > 0
+      )
+        return '';
       const deposit = Number(this.form.deposit_amount);
       if (!deposit) return '';
       const interest = deposit * this.$store.getters.ratePerYear;
@@ -169,8 +173,8 @@ export default {
               date_initialized: new Date(),
               amount_deposited: Number(this.form.deposit_amount),
               status: 'Initialized',
-              referrer_email: this.$store.getters.user.referrer,
-              createdAt: new Date()
+              createdAt: new Date(),
+              updatedAt: new Date()
             })
             .then(docRef => {
               this.depositRefId = docRef.id;

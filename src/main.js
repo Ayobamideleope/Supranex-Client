@@ -8,6 +8,7 @@ import { sync } from 'vuex-router-sync';
 import Vuetify from 'vuetify';
 import VeeValidate from 'vee-validate';
 import VueMoment from 'vue-moment-lib';
+import VueClipboard from 'vue-clipboard2';
 import { auth } from './firebaseInit';
 
 import 'vuetify/dist/vuetify.min.css';
@@ -31,6 +32,7 @@ Vue.use(Vuetify, {
 
 Vue.use(VeeValidate);
 Vue.use(VueMoment);
+Vue.use(VueClipboard);
 
 Vue.config.productionTip = false;
 

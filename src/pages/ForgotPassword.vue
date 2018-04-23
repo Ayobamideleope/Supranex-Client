@@ -6,10 +6,10 @@
           <form @submit.prevent="forgotPassword" class="w-100">
             <h3 class="headline mb-4 text-xs-center primary--text font-weight-bold font-family-secondary">Forgot Password</h3>
 
-            <v-text-field v-model="form.email" label="E-mail" :error-messages="errors.collect('email')" v-validate="'required|email'" data-vv-name="email" type="email" required/>
+            <v-text-field v-model="form.email" label="E-mail" :error-messages="errors.collect('email')" v-validate="'required|email'" data-vv-name="email" type="email" required solo class="border border-primary elevation-0 mb-3"/>
 
             <v-layout justify-space-between>
-              <v-btn color="warning" round :loading="formIsProcessing" type="submit">Forgot Password</v-btn>
+              <v-btn color="accent" round :loading="formIsProcessing" type="submit">Forgot Password</v-btn>
 
               <v-btn flat round color="primary" to="/signin">Back to Sign In</v-btn>
             </v-layout>

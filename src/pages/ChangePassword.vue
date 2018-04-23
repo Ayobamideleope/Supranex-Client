@@ -8,38 +8,30 @@
 
             <v-layout wrap justify-space-between>
               <v-flex xs12 xl5>
-                <v-text-field v-model="form.password" label="Password" :error-messages="errors.collect('password')" v-validate="{required: true, regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[-_+!@#\$%\^&\*])(?=.{8,})/}" data-vv-name="password" required :append-icon="showChangePasswordPassword ? 'visibility_off' : 'visibility'" :append-icon-cb="() => (showChangePasswordPassword = !showChangePasswordPassword)" :type="showChangePasswordPassword ? 'text' : 'password'" />
+                <v-text-field v-model="form.password" label="Password" :error-messages="errors.collect('password')" v-validate="'required: true|min:8'" data-vv-name="password" required :append-icon="showChangePasswordPassword ? 'visibility_off' : 'visibility'" :append-icon-cb="() => (showChangePasswordPassword = !showChangePasswordPassword)" :type="showChangePasswordPassword ? 'text' : 'password'" solo class="border border-primary elevation-0 mb-2"/>
               </v-flex>
 
               <v-flex xs12 class="hidden-xl-only caption">
                 <p>Password must:
                   <ul class="list-position-inside">
-                    <li :class="{'success--text': containsUpperCase}">include (at least) an Upper Case Letter (A-Z)</li>
-                    <li :class="{'success--text': containsLowerCase}">include (at least) a Lower Case Letter (a-z)</li>
-                    <li :class="{'success--text': containsNumbers}">include (at least) a number (0-9)</li>
-                    <li :class="{'success--text': containsSymbols}">include (at least) a special character (-_+!@#$%^&*)</li>
                     <li :class="{'success--text': isMoreThanMin}">not be less than 8 characters</li>
                   </ul>
                 </p>
               </v-flex>
 
               <v-flex xs12 xl5>
-                <v-text-field v-model="form.confirmPassword" label="Confirm Password" :error-messages="errors.collect('confirmPassword')" v-validate="'required'" data-vv-name="confirmPassword" data-vv-as="Confirm Password" required :append-icon="showChangePasswordConfirmPassword ? 'visibility_off' : 'visibility'" :append-icon-cb="() => (showChangePasswordConfirmPassword = !showChangePasswordConfirmPassword)" :type="showChangePasswordConfirmPassword ? 'text' : 'password'" />
+                <v-text-field v-model="form.confirmPassword" label="Confirm Password" :error-messages="errors.collect('confirmPassword')" v-validate="'required'" data-vv-name="confirmPassword" data-vv-as="Confirm Password" required :append-icon="showChangePasswordConfirmPassword ? 'visibility_off' : 'visibility'" :append-icon-cb="() => (showChangePasswordConfirmPassword = !showChangePasswordConfirmPassword)" :type="showChangePasswordConfirmPassword ? 'text' : 'password'" solo class="border border-primary elevation-0 mb-4"/>
               </v-flex>
             </v-layout>
 
             <p class="hidden-lg-and-down">Password must include (at least):
               <ul class="list-position-inside">
-                <li :class="{'success--text': containsUpperCase}">include (at least) an Upper Case Letter (A-Z)</li>
-                <li :class="{'success--text': containsLowerCase}">include (at least) a Lower Case Letter (a-z)</li>
-                <li :class="{'success--text': containsNumbers}">include (at least) a number (0-9)</li>
-                <li :class="{'success--text': containsSymbols}">include (at least) a special character (-_+!@#$%^&*)</li>
                 <li :class="{'success--text': isMoreThanMin}">not be less than 8 characters</li>
               </ul>
             </p>
 
             <v-layout justify-space-between>
-              <v-btn color="warning" round :loading="formIsProcessing" type="submit">Change Password</v-btn>
+              <v-btn color="accent" round :loading="formIsProcessing" type="submit">Change Password</v-btn>
 
               <v-btn flat round color="primary" to="/dashboard">Back to Dashboard</v-btn>
             </v-layout>

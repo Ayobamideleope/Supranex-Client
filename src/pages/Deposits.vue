@@ -4,7 +4,7 @@
       <!-- <v-layout wrap justify-space-around class="child-flex-none"> -->
       <v-layout wrap justify-space-around>
         <v-flex xs6 sm3 class="mb-3 p-2 p-sm-2 p-md-3 p-lg-4">
-          <v-card style="background-image: url('/static/images/overlays/08.png'); background-repeat: repeat;" color="error" class="white--text d-flex flex-column h-100" raised>
+          <v-card style="background-image: url('/static/images/overlays/08.png'); background-repeat: repeat;" color="error" class="white--text d-flex flex-column h-100" raised hover @click.native="search = 'Rejected'">
             <v-card-title primary-title class="bg-transparent-dark justify-center">
               <h2 class="display-2 text-xs-center text-elevation">{{ rejectedDeposits }}</h2>
             </v-card-title>
@@ -14,8 +14,9 @@
             </v-card-text>
           </v-card>
         </v-flex>
+
         <v-flex xs6 sm3 class="mb-3 p-2 p-sm-2 p-md-3 p-lg-4">
-          <v-card style="background-image: url('/static/images/overlays/08.png'); background-repeat: repeat;" color="warning" class="white--text d-flex flex-column h-100" raised>
+          <v-card style="background-image: url('/static/images/overlays/08.png'); background-repeat: repeat;" color="warning" class="white--text d-flex flex-column h-100" raised hover @click.native="search = 'Initialized'">
             <v-card-title primary-title class="bg-transparent-dark justify-center">
               <h2 class="display-2 text-xs-center text-elevation">{{ unconfirmedDeposits }}</h2>
             </v-card-title>
@@ -27,7 +28,7 @@
         </v-flex>
 
         <v-flex xs6 sm3 class="mb-3 p-2 p-sm-2 p-md-3 p-lg-4">
-          <v-card style="background-image: url('/static/images/overlays/08.png'); background-repeat: repeat;" color="success" class="white--text d-flex flex-column h-100" raised>
+          <v-card style="background-image: url('/static/images/overlays/08.png'); background-repeat: repeat;" color="success" class="white--text d-flex flex-column h-100" raised hover @click.native="search = 'Active'">
             <v-card-title primary-title class="bg-transparent-dark justify-center">
               <h2 class="display-2 text-xs-center text-elevation">{{ activeDeposits }}</h2>
             </v-card-title>
@@ -39,7 +40,7 @@
         </v-flex>
 
         <v-flex xs6 sm3 class="mb-3 p-2 p-sm-2 p-md-3 p-lg-4">
-          <v-card style="background-image: url('/static/images/overlays/08.png'); background-repeat: repeat;" class="bg-primary-dark white--text d-flex flex-column h-100" raised>
+          <v-card style="background-image: url('/static/images/overlays/08.png'); background-repeat: repeat;" class="bg-primary-dark white--text d-flex flex-column h-100" raised hover @click.native="search = ''">
             <v-card-title primary-title class="bg-transparent-dark justify-center">
               <h2 class="display-2 text-xs-center text-elevation">{{ allDeposits }}</h2>
             </v-card-title>
@@ -56,7 +57,7 @@
               <v-card-title>
                 <span class="title">Deposits</span>
                 <v-spacer></v-spacer>
-                <v-text-field append-icon="search" label="Search" single-line hide-details v-model="search"></v-text-field>
+                <v-text-field append-icon="search" label="Search" single-line hide-details type="search" v-model="search"></v-text-field>
               </v-card-title>
               <v-data-table :headers="headers" :items="deposits" :search="search" disable-initial-sort>
                 <template slot="items" slot-scope="props">
@@ -207,6 +208,10 @@ export default {
       const secondsRemaining = secondsInAYear - secondsElapsed;
 
       return this.$moment.duration(secondsRemaining, 'seconds').humanize(true);
+    },
+    filterDeposits(search) {
+      console.log('filter deposits by ' + search);
+      this.search = search;
     }
   }
 };

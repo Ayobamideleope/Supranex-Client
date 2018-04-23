@@ -6,36 +6,28 @@
           <form @submit.prevent="signup" class="w-100">
             <h3 class="headline mb-4 text-xs-center primary--text font-weight-bold font-family-secondary">SIGN UP</h3>
 
-            <v-text-field v-model="form.email" label="E-mail" :error-messages="errors.collect('email')" v-validate="'required|email'" data-vv-name="email" type="email" required></v-text-field>
+            <v-text-field v-model="form.email" label="E-mail" :error-messages="errors.collect('email')" v-validate="'required|email'" data-vv-name="email" type="email" required solo class="border border-primary elevation-0 mb-4"></v-text-field>
 
             <v-layout wrap justify-space-between>
               <v-flex xs12 xl5>
-                <v-text-field v-model="form.password" label="Password" :error-messages="errors.collect('password')" v-validate="{required: true, regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[-_+!@#\$%\^&\*])(?=.{8,})/}" data-vv-name="password" required :append-icon="showSignupPassword ? 'visibility_off' : 'visibility'" :append-icon-cb="() => (showSignupPassword = !showSignupPassword)" :type="showSignupPassword ? 'text' : 'password'" />
+                <v-text-field v-model="form.password" label="Password" :error-messages="errors.collect('password')" v-validate="'required|min:8'" data-vv-name="password" required :append-icon="showSignupPassword ? 'visibility_off' : 'visibility'" :append-icon-cb="() => (showSignupPassword = !showSignupPassword)" :type="showSignupPassword ? 'text' : 'password'" solo class="border border-primary elevation-0" />
               </v-flex>
 
               <v-flex xs12 class="hidden-xl-only caption">
                 <p>Password must:
                   <ul class="list-position-inside">
-                    <li :class="{'success--text': containsUpperCase}">include (at least) an Upper Case Letter (A-Z)</li>
-                    <li :class="{'success--text': containsLowerCase}">include (at least) a Lower Case Letter (a-z)</li>
-                    <li :class="{'success--text': containsNumbers}">include (at least) a number (0-9)</li>
-                    <li :class="{'success--text': containsSymbols}">include (at least) a special character (-_+!@#$%^&*)</li>
                     <li :class="{'success--text': isMoreThanMin}">not be less than 8 characters</li>
                   </ul>
                 </p>
               </v-flex>
 
               <v-flex xs12 xl5>
-                <v-text-field v-model="form.confirmPassword" label="Confirm Password" :error-messages="errors.collect('confirmPassword')" v-validate="'required'" data-vv-name="confirmPassword" data-vv-as="Confirm Password" required :append-icon="showSignupConfirmPassword ? 'visibility_off' : 'visibility'" :append-icon-cb="() => (showSignupConfirmPassword = !showSignupConfirmPassword)" :type="showSignupConfirmPassword ? 'text' : 'password'" />
+                <v-text-field v-model="form.confirmPassword" label="Confirm Password" :error-messages="errors.collect('confirmPassword')" v-validate="'required'" data-vv-name="confirmPassword" data-vv-as="Confirm Password" required :append-icon="showSignupConfirmPassword ? 'visibility_off' : 'visibility'" :append-icon-cb="() => (showSignupConfirmPassword = !showSignupConfirmPassword)" :type="showSignupConfirmPassword ? 'text' : 'password'" solo class="border border-primary elevation-0 mb-3" />
               </v-flex>
             </v-layout>
 
-            <p class="hidden-lg-and-down">Password must include (at least):
+            <p class="hidden-lg-and-down">Password must:
               <ul class="list-position-inside">
-                <li :class="{'success--text': containsUpperCase}">include (at least) an Upper Case Letter (A-Z)</li>
-                <li :class="{'success--text': containsLowerCase}">include (at least) a Lower Case Letter (a-z)</li>
-                <li :class="{'success--text': containsNumbers}">include (at least) a number (0-9)</li>
-                <li :class="{'success--text': containsSymbols}">include (at least) a special character (-_+!@#$%^&*)</li>
                 <li :class="{'success--text': isMoreThanMin}">not be less than 8 characters</li>
               </ul>
             </p>
@@ -46,7 +38,7 @@
             <!-- </v-layout> -->
 
             <transition name="fade-transition">
-              <v-text-field v-if="showReferrer" v-model="referrer" label="Referrer's ID" :error-messages="errors.collect('referrer')" v-validate="'alpha_num'" data-vv-name="referrer" required></v-text-field>
+              <v-text-field v-if="showReferrer" v-model="referrer" label="Referrer's ID" :error-messages="errors.collect('referrer')" v-validate="'alpha_num'" data-vv-name="referrer" required solo class="border border-primary elevation-0"></v-text-field>
             </transition>
 
             <v-layout justify-space-between class="mt-4">
@@ -161,6 +153,7 @@ export default {
               this.$store.dispatch('sendEmailVerification');
               if (this.referrer) {
                 this.$store.dispatch('addReferrerToDb', {
+                  uid: user.uid,
                   referrer: this.referrer
                 });
               }

@@ -5,17 +5,24 @@
 @import 'utilities';
 
 .toolbar {
-  background-image: url('/static/images/overlays/07.png') !important;
-  background-repeat: repeat !important;
+  // background-image: url('/static/images/overlays/07.png') !important;
+  // background-repeat: repeat !important;
 }
 
-.toolbar--transparent, .bg-transparent-primary-dark  {
+.bg-primary-dark--transparent  {
   background-color: rgba($brand-primary-dark, 0.9) !important;
-  // background: rgba(darken($color: $brand-primary, $amount: 37%), 0.9) url('/static/images/overlays/07.png') repeat !important;
 }
 
-.toolbar--opaque, .navigation-drawer, .bg-primary-dark {
+.toolbar--transparent  {
+  background-color: rgba($brand-primary, 0.9) !important;
+}
+
+.bg-primary-dark {
   background-color: $brand-primary-dark !important;
+}
+
+.toolbar--opaque, .navigation-drawer {
+  background-color: $brand-primary !important;
 }
 
 .section-about {
@@ -29,7 +36,7 @@
 }
 
 .app-footer {
-  background-color: darken($brand-primary, 45%) !important;
+  background-color: #f7f7f7 !important;
 }
 
 .move-transition {

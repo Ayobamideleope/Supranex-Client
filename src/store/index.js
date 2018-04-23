@@ -61,7 +61,7 @@ export const store = new Vuex.Store({
       {
         text,
         textColor = 'grey--text text--lighten-3',
-        color = 'toolbar--transparent',
+        color = 'bg-primary-dark--transparent',
         btnColor = 'bg-transparent-white',
         btnTextColor = 'grey--text text--lighten-3',
         timeout = 6000
@@ -79,9 +79,9 @@ export const store = new Vuex.Store({
     },
 
     setDeposits(state, payload) {
-      console.dir(['about to set deposits', payload.data]);
+      // console.dir(['about to set deposits', payload.data]);
       state.deposits.data = payload.data;
-      console.dir(state.deposits);
+      // console.dir(state.deposits);
     },
     setDepositsState(state, payload) {
       state.deposits.state = payload.state;
@@ -112,9 +112,13 @@ export const store = new Vuex.Store({
       });
 
       if (state.route.query.redirect) {
-        router.replace({ path: state.route.query.redirect });
+        router.replace({
+          path: state.route.query.redirect
+        });
       } else {
-        router.replace({ path: '/dashboard' });
+        router.replace({
+          path: '/dashboard'
+        });
       }
 
       dispatch('fetchOtherUserData');
@@ -123,30 +127,35 @@ export const store = new Vuex.Store({
       // console.log('signed out');
       auth.signOut();
       commit('signout');
-      router.push({ path: '/signin' });
+      router.push({
+        path: '/signin'
+      });
     },
     sendEmailVerification({ commit, dispatch }) {
       auth.currentUser
         .sendEmailVerification()
         .then(() => {
-          commit('setEmailVerificationSent', 'success');
-          dispatch('setSnackbar', { text: 'Email verification sent' });
+          commit('setUserEmailVerificationSent', 'success');
+          dispatch('setSnackbar', {
+            text: 'Email verification sent'
+          });
         })
         .catch(error => {
-          commit('setEmailVerificationSent', 'error');
+          commit('setUserEmailVerificationSent', 'error');
           dispatch('setSnackbar', {
             text: 'Error Sending Email verification',
             textColor: 'error--text'
           });
         });
     },
-    addReferrerToDb({ getters }, { referrer }) {
+    addReferrerToDb({ getters }, { uid, referrer }) {
       db
         .collection('users')
-        .doc(getters.user.uid)
+        .doc(uid)
         .update({
           referrer
         });
+      console.log('there"s wonder');
     },
     fetchOtherUserData({ getters, commit }) {
       // console.log('fetching specific from db');
@@ -172,7 +181,9 @@ export const store = new Vuex.Store({
     fetchDeposits({ state, commit }, payload) {
       const fetchedDeposits = [];
       // console.dir(payload)
-      commit('setDepositsState', { state: 'loading' });
+      commit('setDepositsState', {
+        state: 'loading'
+      });
 
       db
         .collection('deposits-test')
@@ -191,8 +202,10 @@ export const store = new Vuex.Store({
             commit('setDeposits', {
               data: fetchedDeposits
             });
-            console.dir(['fetched Deposits', fetchedDeposits]);
-            commit('setDepositsState', { state: 'success' });
+            // console.dir(['fetched Deposits', fetchedDeposits]);
+            commit('setDepositsState', {
+              state: 'success'
+            });
           },
           error => {
             console.error(error);
@@ -202,37 +215,53 @@ export const store = new Vuex.Store({
     async fetchSpecificDeposit({ commit, dispatch }, { id }) {
       // return new Promise((resolve, reject) => {
       let state = 'loading';
-      commit('setSpecificDepositState', { state });
+      commit('setSpecificDepositState', {
+        state
+      });
       // console.log('changed state to loading')
 
-      await dispatch('fetchSpecificDepositFromLocal', { id }).then(
-        ([returnedState, data]) => {
-          // console.log('local-then')
+      await dispatch('fetchSpecificDepositFromLocal', {
+        id
+      }).then(([returnedState, data]) => {
+        // console.log('local-then')
 
-          if (returnedState) {
-            state = 'success';
-            commit('setSpecificDeposit', { data });
-            commit('setSpecificDepositState', { state });
-          }
+        if (returnedState) {
+          state = 'success';
+          commit('setSpecificDeposit', {
+            data
+          });
+          commit('setSpecificDepositState', {
+            state
+          });
         }
-      );
+      });
       // console.log('after-local')
 
       // if (state !== 'success') {
-      await dispatch('fetchSpecificDepositFromDb', { id })
+      await dispatch('fetchSpecificDepositFromDb', {
+        id
+      })
         .then(([returnedState, data]) => {
           // console.log('local-then')
 
           if (returnedState) {
             state = 'success';
-            commit('setSpecificDeposit', { data });
-            commit('setSpecificDepositState', { state });
+            commit('setSpecificDeposit', {
+              data
+            });
+            commit('setSpecificDepositState', {
+              state
+            });
           } else {
-            commit('setSpecificDepositState', { state: 'error' });
+            commit('setSpecificDepositState', {
+              state: 'error'
+            });
           }
         })
         .catch(error => {
-          commit('setSpecificDepositState', { state: 'error' });
+          commit('setSpecificDepositState', {
+            state: 'error'
+          });
           console.error(error);
         });
     },

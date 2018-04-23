@@ -2,7 +2,7 @@
   <v-app light class="white">
 
     <!-- Dashboard Drawer -->
-    <v-navigation-drawer v-if="$store.getters.userPage" clipped fixed left class="drawer navigation-drawer--opaque" app v-model="dashboardDrawerEnabled" dark>
+    <!-- <v-navigation-drawer v-if="$store.getters.userPage" clipped fixed left class="drawer navigation-drawer--opaque" app v-model="dashboardDrawerEnabled" dark>
 
       <v-list dense class="pt-0 bg-transparent-dark">
         <v-list-tile to="/dashboard" active-class="default-class accent--text" class="grey--text text--lighten-2">
@@ -47,10 +47,10 @@
           </v-list-tile-content>
         </v-list-tile>
       </v-list>
-    </v-navigation-drawer>
+    </v-navigation-drawer> -->
     <!-- End Dashboard Drawer -->
 
-    <page-toolbar :drawer-enabled="drawerEnabled" @drawertoggled="drawerEnabled = !drawerEnabled" @dashboard-drawer-toggled="dashboardDrawerEnabled = !dashboardDrawerEnabled" />
+    <page-toolbar :drawer-enabled="false" @drawertoggled="drawerEnabled = !drawerEnabled" @dashboard-drawer-toggled="dashboardDrawerEnabled = !dashboardDrawerEnabled" />
 
     <v-content class="mb-5">
       <v-fab-transition>
@@ -71,7 +71,7 @@
 
     <v-footer justify-center class="app-footer grey--text text--lighten-1 py-3 py-md-4" height="auto" app absolute>
       <v-container>
-        <v-layout justify-space-between wrap>
+        <!-- <v-layout justify-space-between wrap>
           <v-flex xs5 sm3 order-xs1 order-sm1>
             <a href="#" class="px-1">
               <img class="img-contain" src="/static/images/image-icons/facebook.png" alt="facebook logo" style="height: 30px; max-width: 25%; width: auto;">
@@ -90,12 +90,28 @@
             <img class="img-contain" src="/static/images/image-icons/mcafee.png" alt="mcafee logo" style="height: auto; max-height: 40px; max-width: 90%; width: auto;">
             <img class="img-contain" src="/static/images/image-icons/comodo.png" alt="comodo logo" style="height: auto; max-height: 35px; max-width: 80%; width: auto;">
           </v-flex>
+        </v-layout> -->
+        <v-layout wrap align-baseline>
+          <v-flex xs12 sm3 class="black--text pt-2">Copyright © Supranex 2017 - {{ new Date().getFullYear() }}</v-flex>
+          <v-flex xs12 sm8 offset-sm1>
+            <v-layout align-baseline justify-end :class="{'child-flex-none': $vuetify.breakpoint.smAndUp, }">
+              <v-flex tag="a" href="#" class="p-3 black--text">Privacy Policy</v-flex>
+              <v-flex tag="span" class="p-3 black--text">|</v-flex>
+              <v-flex tag="a" href="#" class="p-3 black--text">Terms and Conditions</v-flex>
+            </v-layout>
+          </v-flex>
+
+          <v-flex xs12 class="text-xs-center mt-3">
+            <a href="#" class="px-3 py-2"><img src="/static/images/image-icons/facebook.png" class="footer__social-icon-img"></a>
+            <a href="#" class="px-3 py-2"><img src="/static/images/image-icons/twitter.png" class="footer__social-icon-img"></a>
+            <a href="#" class="px-3 py-2"><img src="/static/images/image-icons/instagram.png" class="footer__social-icon-img"></a>
+          </v-flex>
         </v-layout>
       </v-container>
     </v-footer>
 
     <!-- App Drawer -->
-    <v-navigation-drawer fixed right class="drawer" app v-model="drawerEnabled" disable-resize-watcher dark>
+    <!-- <v-navigation-drawer fixed right class="drawer" app v-model="drawerEnabled" disable-resize-watcher dark>
       <v-toolbar flat class="bg-transparent-dark-2">
         <v-list>
           <v-list-tile>
@@ -109,7 +125,7 @@
       <v-divider></v-divider>
 
       <v-list class="pt-0 bg-transparent-dark">
-        <v-list-tile to="/" exact active-class="default-class accent--text" class="grey--text text--lighten-2">
+        <v-list-tile href="/" exact active-class="default-class accent--text" class="grey--text text--lighten-2">
           <v-list-tile-action>
             <v-icon class="grey--text text--lighten-2">fa-home</v-icon>
           </v-list-tile-action>
@@ -147,13 +163,13 @@
             <v-icon class="grey--text text--lighten-2">fa-gem</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
-            <v-list-tile-title class="">Savings</v-list-tile-title>
+            <v-list-tile-title class="">Savings / Dashboard</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
       </v-list>
 
       <v-list class="pt-0 bg-transparent-dark">
-        <v-list-tile to="/how-it-works" active-class="default-class accent--text" class="grey--text text--lighten-2">
+        <v-list-tile href="/how-it-works.html" active-class="default-class accent--text" class="grey--text text--lighten-2">
           <v-list-tile-action>
             <v-icon class="grey--text text--lighten-2">fa-list-ul</v-icon>
           </v-list-tile-action>
@@ -164,7 +180,7 @@
       </v-list>
 
       <v-list class="pt-0 bg-transparent-dark">
-        <v-list-tile to="/referral-bonus" active-class="default-class accent--text" class="grey--text text--lighten-2">
+        <v-list-tile href="/referral-system.html" active-class="default-class accent--text" class="grey--text text--lighten-2">
           <v-list-tile-action>
             <v-icon class="grey--text text--lighten-2">fa-users</v-icon>
           </v-list-tile-action>
@@ -175,7 +191,7 @@
       </v-list>
 
       <v-list class="pt-0 bg-transparent-dark">
-        <v-list-tile to="/faq" active-class="default-class accent--text" class="grey--text text--lighten-2">
+        <v-list-tile href="/faq.html" active-class="default-class accent--text" class="grey--text text--lighten-2">
           <v-list-tile-action>
             <v-icon class="grey--text text--lighten-2">fa-comment</v-icon>
           </v-list-tile-action>
@@ -186,7 +202,7 @@
       </v-list>
 
       <v-list class="pt-0 bg-transparent-dark">
-        <v-list-tile href="/about.html" active-class="default-class accent--text" class="grey--text text--lighten-2">
+        <v-list-tile href="/about_supranex.html" active-class="default-class accent--text" class="grey--text text--lighten-2">
           <v-list-tile-action>
             <v-icon class="grey--text text--lighten-2">fa-exclamation</v-icon>
           </v-list-tile-action>
@@ -195,8 +211,87 @@
           </v-list-tile-content>
         </v-list-tile>
       </v-list>
-    </v-navigation-drawer>
+    </v-navigation-drawer> -->
     <!-- End App Drawer -->
+    <v-navigation-drawer clipped fixed right class="drawer navigation-drawer--opaque" app v-model="dashboardDrawerEnabled" dark>
+
+      <v-list dense class="pt-0 bg-transparent-dark">
+        <v-list-tile href="/" exact active-class="default-class accent--text" class="grey--text text--lighten-2">
+          <v-list-tile-action>
+            <v-icon class="grey--text text--lighten-2">fa-home</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title class="">Home</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+      </v-list>
+
+      <v-list dense class="pt-0 bg-transparent-dark" v-if="!$store.getters.user">
+        <v-list-tile to="/signin" active-class="default-class accent--text" class="grey--text text--lighten-2">
+          <v-list-tile-action>
+            <v-icon class="grey--text text--lighten-2">fa-key</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title class="">Sign In</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+      </v-list>
+
+      <v-list dense class="pt-0 bg-transparent-dark" v-if="!$store.getters.user">
+        <v-list-tile to="/signup" active-class="default-class accent--text" class="grey--text text--lighten-2">
+          <v-list-tile-action>
+            <v-icon class="grey--text text--lighten-2">fa-key</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title class="">Create an Account</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+      </v-list>
+
+      <v-list dense class="pt-0 bg-transparent-dark">
+        <v-list-tile to="/dashboard" active-class="default-class accent--text" class="grey--text text--lighten-2">
+          <v-list-tile-action>
+            <v-icon class="grey--text text--lighten-2">fa-user</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title class="font-weight-normal">Dashboard</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+      </v-list>
+
+      <v-list dense class="pt-0 bg-transparent-dark" v-if="$store.getters.user">
+        <v-list-tile to="/make-deposit" active-class="default-class accent--text" class="grey--text text--lighten-2">
+          <v-list-tile-action>
+            <v-icon class="text--lighten-2">fa-plus</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title class="font-weight-normal">Make a Deposit</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+      </v-list>
+
+      <v-list dense class="pt-0 bg-transparent-dark" v-if="$store.getters.user">
+        <v-list-tile to="/deposits" active-class="default-class accent--text" class="grey--text text--lighten-2">
+          <v-list-tile-action>
+            <v-icon class="text--lighten-2">fa-gem</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title class="font-weight-normal">Deposits</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+      </v-list>
+
+      <v-list dense class="pt-0 bg-transparent-dark" v-if="$store.getters.user">
+        <v-list-tile @click="$store.dispatch('signout')" exact>
+          <v-list-tile-action>
+            <v-icon class="grey--text text--lighten-2">fa-key</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title class="grey--text text--lighten-2">Logout</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+      </v-list>
+    </v-navigation-drawer>
   </v-app>
 </template>
 
@@ -282,3 +377,14 @@ export default {
   }
 };
 </script>
+
+<style>
+.footer__social-icon-img {
+  height: 32px;
+  width: 32px;
+}
+
+a > .footer__social-icon-img:hover {
+  filter: grayscale(100%);
+}
+</style>

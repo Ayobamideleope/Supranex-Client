@@ -2,27 +2,26 @@
   <transition name="slide-y-reverse-transition">
     <v-toolbar v-bind="{'flat': !raised}" transition="slide-y-reverse-transition" dark fixed clipped-left :class="{'pl-2 pl-sm-3 pl-md-5 toolbar': true, 'pr-2 pr-sm-3 pr-md-5': !drawerEnabled, 'py-3 bg-image-none': expanded && $route.name === 'Home', 'toolbar--transparent': !$store.getters.userPage, 'toolbar--opaque': $store.getters.userPage}" app>
 
-      <v-toolbar-side-icon v-if="$store.getters.userPage" @click="$emit('dashboard-drawer-toggled');">
-        <!-- <i class="fa-bars fa-lg"></i> -->
-        <!-- <v-btn round color="transparent" flat> -->
-        <div class="d-flex flex-column justify-space-between p-2 child-flex-none" style="width: 32px; height: 33px;" @click="$emit('drawertoggled');">
-          <div style="height: 1px; width: 100%; background-color: #fafafa"></div>
-          <div style="height: 1px; width: 70%; background-color: #fafafa"></div>
-          <div style="height: 1px; width: 85%; background-color: #fafafa"></div>
-        </div>
-        <!-- </v-btn> -->
-      </v-toolbar-side-icon>
+      <!-- <transition name="shake" enter-active-class="animated shake" leave-active-class="animated shake">
+        <v-toolbar-side-icon v-if="$store.getters.userPage" @click="$emit('dashboard-drawer-toggled');">
+          <div class="d-flex flex-column justify-space-between p-2 child-flex-none" style="width: 32px; height: 33px;" @click="$emit('drawertoggled');">
+            <div style="height: 1px; width: 100%; background-color: #fafafa"></div>
+            <div style="height: 1px; width: 70%; background-color: #fafafa"></div>
+            <div style="height: 1px; width: 85%; background-color: #fafafa"></div>
+          </div>
+        </v-toolbar-side-icon>
+      </transition> -->
 
       <a href="/"><img src="/static/images/logo.png" alt="Supranex" style="height: 30px; width: auto"></a>
 
       <v-spacer></v-spacer>
-      <v-toolbar-items class="hidden-sm-and-down">
-        <v-btn dark to="about" flat class="text-capitalize">About</v-btn>
-        <v-btn dark to="how-it-works" flat class="text-capitalize">How It Works</v-btn>
-        <v-btn dark to="faq" flat class="text-capitalize">FAQ</v-btn>
-        <v-btn dark to="referral-bonus" flat class="text-capitalize">5% Referral Bonus</v-btn>
-        <v-btn dark to="signin" flat class="text-capitalize">Login</v-btn>
-        <v-btn dark to="signup" flat class="text-capitalize">Create Account</v-btn>
+      <v-toolbar-items v-if="$vuetify.breakpoint.mdAndUp">
+        <v-btn dark href="/" flat class="text-capitalize">Home</v-btn>
+        <v-btn v-if="!$store.getters.user" dark to="/signin" flat class="text-capitalize" active-class="default-class accent--text">Login</v-btn>
+        <v-btn v-if="!$store.getters.user" dark to="/signup" flat class="text-capitalize" active-class="default-class accent--text">Create Account</v-btn>
+        <v-btn v-if="$store.getters.user" dark to="/dashboard" flat class="text-capitalize" active-class="default-class accent--text">Dashboard</v-btn>
+        <v-btn v-if="$store.getters.user" dark to="/make-deposit" flat class="text-capitalize" active-class="default-class accent--text">Make a Deposit</v-btn>
+        <v-btn v-if="$store.getters.user" dark to="/deposits" flat class="text-capitalize" active-class="default-class accent--text">Deposits</v-btn>
       </v-toolbar-items>
 
       <transition name="flip-in-x" enter-active-class="animated flipInX" leave-active-class="animated flipOutX">
@@ -45,10 +44,10 @@
         </v-menu>
       </transition>
 
-      <v-toolbar-side-icon @click="$emit('drawertoggled');" v-if="$vuetify.breakpoint.smAndDown">
+      <v-toolbar-side-icon @click="$emit('dashboard-drawer-toggled');" v-if="$vuetify.breakpoint.smAndDown">
         <!-- <i class="fa-bars fa-lg"></i> -->
         <!-- <v-btn round color="transparent" flat> -->
-        <div class="d-flex flex-column align-center justify-space-between p-2 child-flex-none" style="width: 32px; height: 33px;" @click="$emit('drawertoggled');">
+        <div class="d-flex flex-column align-center justify-space-between p-2 child-flex-none" style="width: 32px; height: 33px;">
           <div style="height: 1px; width: 100%; background-color: #fafafa"></div>
           <div style="height: 1px; width: 70%; background-color: #fafafa"></div>
           <div style="height: 1px; width: 100%; background-color: #fafafa"></div>

@@ -23,7 +23,7 @@
             </v-card-title>
             <v-divider dark class="flex-none"></v-divider>
             <v-card-text class="flex-none font-all-caps bg-transparent-dark">
-              Interests Accured
+              Interests Accumulated
             </v-card-text>
           </v-card>
         </v-flex>
@@ -64,7 +64,7 @@
           <v-btn flat color="accent" class="text-capitalize mt-0" style="margin-left: -16px" to="/change-password">Change Password</v-btn>
 
           <p class="body-2 mt-3 mb-0">Referral Link</p>
-          <a :href="`https://www.supranex.com/signup?referrer=${this.$store.getters.user.uid}`" target="_blank" v-text="`https://www.supranex.com/signup?referrer=${this.$store.getters.user.uid}`"></a>
+          <a :href="`https://www.supranex.com/signup?referrer=${this.$store.getters.user.uid}`" target="_blank" v-text="`https://www.supranex.com/signup?referrer=${this.$store.getters.user.uid}`" class="caption"></a>
         </v-flex>
 
         <v-flex xs12 sm5 v-if="!$store.getters.user.emailVerified">

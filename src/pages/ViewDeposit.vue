@@ -62,7 +62,7 @@
               <v-flex xs12 tag="div" class="text-xs-center py-5 px-3 px-md-5">
                 <h2 class="display-1">Your deposit is not Active</h2>
                 <p class="title mt-3">Please ensure you have made the deposit to
-                  <code>R833hd83j</code>
+                  <code>1JoeWHZ2QvRbfzwFg1mk8fH4ri1js3XPmo</code>
                 </p>
               </v-flex>
             </v-layout>
@@ -94,7 +94,7 @@
                 <v-badge color="info" v-if="deposit.status === 'Withdrawing'">
                   <v-icon slot="badge" dark small>fa-cloud-download-alt</v-icon>
                   <span class="headline">
-                    Withdrawing
+                    Processing Withdrawal
                   </span>
                 </v-badge>
                 <v-badge color="secondary" v-if="deposit.status === 'Withdrawn'">
@@ -112,6 +112,17 @@
               </v-card-title>
               <v-divider></v-divider>
               <v-list dense>
+                <v-list-tile>
+                  <v-list-tile-content>ID:</v-list-tile-content>
+                  <v-list-tile-content class="align-end">
+                    <code>{{ deposit.id }}</code>
+                  </v-list-tile-content>
+                  <v-list-tile-action>
+                    <v-btn icon ripple v-clipboard:copy="deposit.id" v-clipboard:success="onDepositIDCopySuccess" v-clipboard:error="onDepositIDCopyError">
+                      <v-icon color="grey lighten-1">content_copy</v-icon>
+                    </v-btn>
+                  </v-list-tile-action>
+                </v-list-tile>
                 <v-list-tile>
                   <v-list-tile-content>Date Initiated:</v-list-tile-content>
                   <v-list-tile-content class="align-end">{{ $moment(deposit.date_initialized).fromNow() }}</v-list-tile-content>
@@ -212,7 +223,11 @@ export default {
 
       const ratePerDay = this.$store.getters.ratePerYear / 365;
       let noOfDays = 0;
-      if (this.deposit.date_confirmed) {
+      if (this.deposit.date_confirmed && this.deposit.date_withdrawn) {
+        noOfDays =
+          (this.deposit.date_withdrawn - this.deposit.date_confirmed) /
+          86400000;
+      } else if (this.deposit.date_confirmed) {
         noOfDays = (new Date() - this.deposit.date_confirmed) / 86400000;
       }
       const interest = amount * ratePerDay * noOfDays;
@@ -259,6 +274,18 @@ export default {
     },
     numberToCurrencyFormat(n) {
       return String(n).replace(/(\d)(?=(\d{3})+\.)/g, '$1, ');
+    },
+    onDepositIDCopySuccess() {
+      this.$store.dispatch('setSnackbar', {
+        text: 'Deposit ID has been copied to your clipboard',
+        textColor: 'success--text'
+      });
+    },
+    onDepositIDCopyError() {
+      this.$store.dispatch('setSnackbar', {
+        text: 'Could not copy Deposit ID to your clipboard',
+        textColor: 'error--text'
+      });
     }
   }
 };

@@ -147,11 +147,12 @@
             </v-card-title>
             <v-divider></v-divider>
             <v-card-text>
-              <p class="warning--text">Please note that this request is irrevocable; Once you push the withdrawn button, there's no cancelling.</p>
-
+              <p v-if="depositIsUpToAYear" class="warning--text">Please note that this request is irrevocable; Once you push the withdrawn button, there's no cancelling.</p>
+              
+              <p v-if="!depositIsUpToAYear" class="warning--text">Your deposit has not matured.</p>
             </v-card-text>
             <v-card-actions class="d-flex justify-space-between child-flex-none">
-              <v-btn color="accent" v-if="depostIsActive" :loading="formIsProcessing" dark @click="requestWithdrawal">
+              <v-btn color="accent" v-if="depostIsActive" :loading="formIsProcessing" dark @click="requestWithdrawal" :disabled="!depositIsUpToAYear">
                 <v-icon small left>fa-cloud-download-alt</v-icon>Withdraw Now
               </v-btn>
 
@@ -270,6 +271,12 @@ export default {
       const interest = amount * ratePerYear;
 
       return this.numberToCurrencyFormat((amount + interest).toFixed(2));
+    },
+    depositIsUpToAYear() {
+      if (!this.deposit) {
+        return null;
+      }
+      return new Date() - this.deposit.date_confirmed >= 31536000000;
     }
   },
 
@@ -303,6 +310,13 @@ export default {
     requestWithdrawal() {
       if (!this.depostIsActive) {
         throw new Error('The Deposit is not Active');
+      }
+      if (!this.depositIsUpToAYear) {
+        this.$store.dispatch('setSnackbar', {
+          text: 'Your deposit has not matured',
+          textColor: 'error--text'
+        });
+        return;
       }
       this.$store.dispatch('setSnackbar', {
         text: 'Your request is being processed'

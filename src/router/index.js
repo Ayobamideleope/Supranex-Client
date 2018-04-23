@@ -31,7 +31,7 @@ const router = new Router({
     // },
     {
       path: '/',
-      redirect: '/dashboard'
+      redirect: '/signup'
     },
     {
       path: '/signup',
@@ -78,7 +78,6 @@ const router = new Router({
       name: 'MakeDeposit',
       component: MakeDeposit,
       meta: {
-        requiresAuth: true,
         requiresUserVerified: true
       }
     },
@@ -87,7 +86,6 @@ const router = new Router({
       name: 'ViewDeposit',
       component: ViewDeposit,
       meta: {
-        requiresAuth: true,
         requiresUserVerified: true
       }
     },
@@ -96,7 +94,6 @@ const router = new Router({
       name: 'Deposits',
       component: Deposits,
       meta: {
-        requiresAuth: true,
         requiresUserVerified: true
       }
     },
@@ -105,7 +102,6 @@ const router = new Router({
       name: 'MakeWithdrawal',
       component: MakeWithdrawal,
       meta: {
-        requiresAuth: true,
         requiresUserVerified: true
       }
     }
@@ -151,7 +147,19 @@ const router = new Router({
 });
 
 router.beforeEach((to, from, next) => {
-  if (to.matched.some(record => record.meta.requiresAuth)) {
+  if (to.matched.some(record => record.meta.requiresUserVerified)) {
+    if (!store.getters.user || !store.getters.user.emailVerified) {
+      store.dispatch('setSnackbar', {
+        text: 'Verify your Email Address',
+        textColor: 'warning--text'
+      });
+      next({
+        path: '/dashboard'
+      });
+    } else {
+      next();
+    }
+  } else if (to.matched.some(record => record.meta.requiresAuth)) {
     if (!store.getters.user) {
       store.dispatch('setSnackbar', {
         text: 'You need to be Signed In',
@@ -178,20 +186,8 @@ router.beforeEach((to, from, next) => {
     } else {
       next();
     }
-  } else if (to.matched.some(record => record.meta.requiresUserVerified)) {
-    if (!store.getters.user.emailVerified) {
-      store.dispatch('setSnackbar', {
-        text: 'Verify your Email Address',
-        textColor: 'warning--text'
-      });
-      next({
-        path: '/dashboard'
-      });
-    } else {
-      next();
-    }
   } else {
-    next(); // make sure to always call next()!
+    next();
   }
 });
 
