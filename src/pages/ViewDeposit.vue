@@ -228,7 +228,9 @@ export default {
           (this.deposit.date_withdrawn - this.deposit.date_confirmed) /
           86400000;
       } else if (this.deposit.date_confirmed) {
-        noOfDays = (new Date() - this.deposit.date_confirmed) / 86400000;
+        noOfDays = Math.floor(
+          (new Date() - this.deposit.date_confirmed) / 86400000
+        );
       }
       const interest = amount * ratePerDay * noOfDays;
 
