@@ -147,7 +147,7 @@
             </v-card>
           </v-flex>
 
-          <v-flex xs12 d-flex justify-center class="mb-5 child-flex-none" v-if="deposit.status === 'Active'">
+          <v-flex xs12 d-flex justify-center class="mb-5 child-flex-none" v-if="deposit.status === 'Active' && depositIsUpToAYear">
             <v-btn :disabled="!depositIsActive" small color="primary" :to="`/make-withdrawal/${deposit.id}`">
               <v-icon left small>fa-cloud-download-alt</v-icon>Withdraw Now</v-btn>
           </v-flex>
@@ -248,6 +248,12 @@ export default {
       const secondsRemaining = secondsInAYear - secondsElapsed;
 
       return this.$moment.duration(secondsRemaining, 'seconds').humanize(true);
+    },
+    depositIsUpToAYear() {
+      if (!this.deposit) {
+        return null;
+      }
+      return new Date() - this.deposit.date_confirmed >= 31536000000;
     }
   },
 
