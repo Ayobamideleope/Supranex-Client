@@ -73,7 +73,7 @@
                       <span>View Deposit</span>
                     </v-tooltip>
 
-                    <v-tooltip top transition="scale-transition" v-if="props.item.status === 'Active'">
+                    <v-tooltip top transition="scale-transition" v-if="props.item.status === 'Active' && depositIsUpToAYear(props.item.date_confirmed)">
                       <v-btn slot="activator" small flat icon :to="`/make-withdrawal/${props.item.id}`">
                         <v-icon color="accent" small>fa-cloud-download-alt</v-icon>
                       </v-btn>
@@ -212,6 +212,12 @@ export default {
     filterDeposits(search) {
       console.log('filter deposits by ' + search);
       this.search = search;
+    },
+    depositIsUpToAYear(date_confirmed) {
+      if (!this.deposit) {
+        return null;
+      }
+      return new Date() - date_confirmed >= 31536000000;
     }
   }
 };
