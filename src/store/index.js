@@ -133,7 +133,9 @@ export const store = new Vuex.Store({
     },
     sendEmailVerification({ commit, dispatch }) {
       auth.currentUser
-        .sendEmailVerification()
+        .sendEmailVerification({
+          url: 'https://www.supranex.com/dashboard/'
+        })
         .then(() => {
           commit('setUserEmailVerificationSent', 'success');
           dispatch('setSnackbar', {
