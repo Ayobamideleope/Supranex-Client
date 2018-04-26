@@ -2,30 +2,24 @@
 
 module.exports = {
   root: true,
+  parser: 'babel-eslint',
   parserOptions: {
-    sourceType: 'module',
-    parser: 'babel-eslint'
+    sourceType: 'module'
   },
   env: {
-    browser: true
+    browser: true,
   },
   // https://github.com/standard/standard/blob/master/docs/RULES-en.md
-  extends: ['prettier', 'prettier/standard', 'plugin:vue/essential'],
-  // extends: 'standard',
+  extends: 'standard',
   // required to lint *.vue files
-  // plugins: ['vue', 'prettier'],
-  plugins: ['prettier', 'vue'],
+  plugins: [
+    'html'
+  ],
   // add your custom rules here
   rules: {
-    'prettier/prettier': [
-      'error',
-      {
-        singleQuote: true
-      }
-    ],
     // allow async-await
     'generator-star-spacing': 'off',
     // allow debugger during development
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off'
   }
-};
+}

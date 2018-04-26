@@ -100,12 +100,12 @@
 </template>
 
 <script>
-import db from '../firebaseInit';
+import db from '../firebaseInit'
 
 export default {
   name: 'MakeDepositPage',
 
-  data() {
+  data () {
     return {
       form: {
         deposit_amount: ''
@@ -115,37 +115,36 @@ export default {
       amountDeposited: 0,
       depositRefId: '',
       showBtcAddress: false
-    };
-  },
-
-  computed: {
-    amountYouGet() {
-      if (
-        this.form.deposit_amount < 100 ||
-        this.errors.collect('deposit_amount').length > 0
-      )
-        return '';
-      const deposit = Number(this.form.deposit_amount);
-      if (!deposit) return '';
-      const interest = deposit * this.$store.getters.ratePerYear;
-      let total = deposit + interest;
-      return this.numberToCurrencyFormat(total.toFixed(2));
     }
   },
 
-  created() {
+  computed: {
+    amountYouGet () {
+      if (
+        this.form.deposit_amount < 100 ||
+        this.errors.collect('deposit_amount').length > 0
+      ) { return '' }
+      const deposit = Number(this.form.deposit_amount)
+      if (!deposit) return ''
+      const interest = deposit * this.$store.getters.ratePerYear
+      let total = deposit + interest
+      return this.numberToCurrencyFormat(total.toFixed(2))
+    }
+  },
+
+  created () {
     if (this.$route.query.amount) {
-      this.form.deposit_amount = this.$route.query.amount;
+      this.form.deposit_amount = this.$route.query.amount
     }
   },
 
   methods: {
-    numberToCurrencyFormat(n) {
-      return String(n).replace(/(\d)(?=(\d{3})+\.)/g, '$1, ');
+    numberToCurrencyFormat (n) {
+      return String(n).replace(/(\d)(?=(\d{3})+\.)/g, '$1, ')
     },
 
-    makeDeposit() {
-      this.showDialog = false;
+    makeDeposit () {
+      this.showDialog = false
 
       this.$validator
         .validateAll()
@@ -154,16 +153,16 @@ export default {
             return this.$store.dispatch('setSnackbar', {
               text: 'Please kindly check form for errors.',
               color: 'error'
-            });
+            })
           }
 
           this.$store.dispatch('setSnackbar', {
             text: 'Your request is being processed'
-          });
+          })
 
-          this.formIsProcessing = true;
+          this.formIsProcessing = true
           // Remove previous alerts
-          this.showBtcAddress = false;
+          this.showBtcAddress = false
 
           db
             .collection('deposits-test')
@@ -177,35 +176,35 @@ export default {
               updatedAt: new Date()
             })
             .then(docRef => {
-              this.depositRefId = docRef.id;
-              this.amountDeposited = this.form.deposit_amount;
-              this.showBtcAddress = true;
-              this.clear();
-              this.formIsProcessing = false;
+              this.depositRefId = docRef.id
+              this.amountDeposited = this.form.deposit_amount
+              this.showBtcAddress = true
+              this.clear()
+              this.formIsProcessing = false
               this.$store.dispatch('setSnackbar', {
                 text: 'Your Deposit has been Initialized!',
                 timeout: 16000,
                 textColor: 'success--text'
-              });
+              })
               // this.$store.dispatch('fetchDeposits');
             })
             .catch(error => {
-              this.formIsProcessing = false;
+              this.formIsProcessing = false
               this.$store.dispatch('setSnackbar', {
                 text: error.message,
                 timeout: 25000
-              });
-            });
+              })
+            })
         })
-        .catch(error => console.error(error));
+        .catch(error => console.error(error))
     },
 
-    clear() {
+    clear () {
       for (let field in this.form) {
-        this.form[field] = '';
+        this.form[field] = ''
       }
-      this.$validator.reset();
+      this.$validator.reset()
     }
   }
-};
+}
 </script>

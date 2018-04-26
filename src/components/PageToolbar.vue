@@ -61,13 +61,13 @@
 
 <script>
 export default {
-  data() {
+  data () {
     return {
       scrolled: false,
       raised: false,
       expanded: true,
       routesCategories: []
-    };
+    }
   },
   props: {
     drawerEnabled: {
@@ -75,28 +75,28 @@ export default {
     }
   },
   methods: {
-    handleScroll() {
+    handleScroll () {
       if (window.scrollY > 100 && this.scrolled === false) {
-        this.raised = true;
-        this.expanded = false;
-        this.scrolled = true;
+        this.raised = true
+        this.expanded = false
+        this.scrolled = true
       } else if (window.scrollY < 100 && this.scrolled === true) {
-        this.raised = false;
-        this.expanded = true;
-        this.scrolled = false;
+        this.raised = false
+        this.expanded = true
+        this.scrolled = false
       }
     },
-    toggleDrawer() {
-      this.$emit('drawertoggled');
+    toggleDrawer () {
+      this.$emit('drawertoggled')
     }
   },
-  created() {
-    window.addEventListener('scroll', this.handleScroll);
+  created () {
+    window.addEventListener('scroll', this.handleScroll)
   },
-  destroyed() {
-    window.removeEventListener('scroll', this.handleScroll);
+  destroyed () {
+    window.removeEventListener('scroll', this.handleScroll)
   }
-};
+}
 </script>
 
 <style scoped>

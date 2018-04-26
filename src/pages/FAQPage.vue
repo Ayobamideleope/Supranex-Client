@@ -20,9 +20,10 @@
 
 <script>
 export default {
-  data() {
+  data () {
     return {
       faq: [
+          /* eslint-disable no-irregular-whitespace */
         {
           question: 'How do I create a Supranex Bitcoin Savings Account?',
           answer: `If you are a new user, Click “Create Account” and enter your information. Click “Submit”. Check the e-mail we send to you and click the link to verify your e-mail. Your ​Supranex Bitcoin Savings Account​ ​is created. Simple!`
@@ -93,7 +94,7 @@ export default {
         },
         {
           question: 'How do I withdraw before maturity date?',
-          answer: `To withdraw before maturity date, you are required to send a request to : <a  href="mailto:finance​@supranex.com​">finance​@supranex.com​</a> from the  e-mail address attached to your account. ​Your withdrawal will be processed within 24 hrs and fund transferred to the same Bitcoin address you used to deposit. <br><br> This measure is taken to protect your funds.<br><br> The minimum you can withdraw is $100.`
+          answer: `To withdraw before maturity date, you are required to send a request to : <a href="mailto:finance​@supranex.com​">finance​@supranex.com​</a> from the  e-mail address attached to your account. ​Your withdrawal will be processed within 24 hrs and fund transferred to the same Bitcoin address you used to deposit. <br><br> This measure is taken to protect your funds.<br><br> The minimum you can withdraw is $100.`
         },
         {
           question: 'What is 2-factor authentication?',
@@ -106,7 +107,7 @@ export default {
           answer: `Our team of veteran cryptocurrency experts will put your money to work by investing it in profitable cryptocurrencies to ensure that your 100% interest is delivered to you.`
         }
       ]
-    };
+    }
   }
-};
+}
 </script>

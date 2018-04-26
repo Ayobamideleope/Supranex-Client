@@ -22,24 +22,24 @@
 </template>
 
 <script>
-import { auth } from '../firebaseInit';
+import { auth } from '../firebaseInit'
 
 export default {
   $_veeValidate: {
     validator: 'new'
   },
   name: 'ForgotPasswordPage',
-  data() {
+  data () {
     return {
       form: {
         email: ''
       },
       formIsProcessing: false
-    };
+    }
   },
 
   methods: {
-    forgotPassword() {
+    forgotPassword () {
       this.$validator
         .validateAll()
         .then(validity => {
@@ -47,47 +47,47 @@ export default {
             return this.$store.dispatch('setSnackbar', {
               text: 'Please kindly check form for errors.',
               color: 'error'
-            });
+            })
           }
 
           this.$store.dispatch('setSnackbar', {
             text: 'A reset link is being sent to your mail'
-          });
+          })
 
-          this.formIsProcessing = true;
+          this.formIsProcessing = true
           // Remove previous alerts
-          this.showAlert = false;
+          this.showAlert = false
 
           auth
             .sendPasswordResetEmail(this.form.email, {
               url: 'https://www.supranex.com/dashboard/'
             })
             .then(user => {
-              this.clear();
-              this.formIsProcessing = false;
+              this.clear()
+              this.formIsProcessing = false
               this.$store.dispatch('setSnackbar', {
                 text: 'Reset Link Sent! Please check you inbox',
                 textColor: 'success--text'
-              });
-              this.$router.push({ path: '/signin' });
+              })
+              this.$router.push({ path: '/signin' })
             })
             .catch(error => {
-              this.formIsProcessing = false;
+              this.formIsProcessing = false
               this.$store.dispatch('setSnackbar', {
                 text: error.message,
                 textColor: 'error--text'
-              });
-            });
+              })
+            })
         })
-        .catch(error => console.error(error));
+        .catch(error => console.error(error))
     },
 
-    clear() {
+    clear () {
       for (let field in this.form) {
-        this.form[field] = '';
+        this.form[field] = ''
       }
-      this.$validator.reset();
+      this.$validator.reset()
     }
   }
-};
+}
 </script>

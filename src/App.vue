@@ -300,86 +300,84 @@
 </template>
 
 <script>
-import { auth } from './firebaseInit';
-
-import PageToolbar from './components/PageToolbar.vue';
+import PageToolbar from './components/PageToolbar.vue'
 
 export default {
   name: 'App',
-  data() {
+  data () {
     return {
       drawerEnabled: false,
       routerViewTransitionName: 'scale-transition',
       scrolled: false,
       showScrollToTop: false,
       dashboardDrawerEnabled: false
-    };
+    }
   },
 
-  created() {},
+  created () {},
 
   computed: {
     showSnackbar: {
-      get() {
-        return this.$store.getters.showSnackbar;
+      get () {
+        return this.$store.getters.showSnackbar
       },
-      set(newValue) {
-        this.$store.dispatch('toggleSnackbar', newValue);
+      set (newValue) {
+        this.$store.dispatch('toggleSnackbar', newValue)
       }
     },
-    snackbar() {
-      return this.$store.getters.snackbar;
+    snackbar () {
+      return this.$store.getters.snackbar
     }
   },
 
   watch: {
-    $route(to, from) {
-      const toDepth = to.path.split('/').length;
-      const fromDepth = from.path.split('/').length;
+    $route (to, from) {
+      const toDepth = to.path.split('/').length
+      const fromDepth = from.path.split('/').length
       this.routerViewTransitionName =
         toDepth < fromDepth
           ? 'slide-y-reverse-transition'
-          : 'slide-y-transition';
+          : 'slide-y-transition'
     }
   },
 
   methods: {
-    handleScroll() {
+    handleScroll () {
       if (
         document.body.scrollTop > 1000 ||
         document.documentElement.scrollTop > 1000
       ) {
-        this.showScrollToTop = true;
+        this.showScrollToTop = true
       } else {
-        this.showScrollToTop = false;
+        this.showScrollToTop = false
       }
     },
 
-    scrollToTop() {
-      const scrollDuration = 600;
-      let cosParameter = window.scrollY / 2,
-        scrollCount = 0,
-        oldTimestamp = performance.now();
-      function step(newTimestamp) {
+    scrollToTop () {
+      const scrollDuration = 600
+      let cosParameter = window.scrollY / 2
+      let scrollCount = 0
+      let oldTimestamp = performance.now()
+      function step (newTimestamp) {
         scrollCount +=
-          Math.PI / (scrollDuration / (newTimestamp - oldTimestamp));
-        if (scrollCount >= Math.PI) window.scrollTo(0, 0);
-        if (window.scrollY === 0) return;
+          Math.PI / (scrollDuration / (newTimestamp - oldTimestamp))
+        if (scrollCount >= Math.PI) window.scrollTo(0, 0)
+        if (window.scrollY === 0) return
         window.scrollTo(
           0,
           Math.round(cosParameter + cosParameter * Math.cos(scrollCount))
-        );
-        oldTimestamp = newTimestamp;
-        window.requestAnimationFrame(step);
+        )
+        oldTimestamp = newTimestamp
+        window.requestAnimationFrame(step)
       }
-      window.requestAnimationFrame(step);
+      window.requestAnimationFrame(step)
     }
   },
 
   components: {
     PageToolbar
   }
-};
+}
 </script>
 
 <style>

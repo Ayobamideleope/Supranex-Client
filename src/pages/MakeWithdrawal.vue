@@ -148,7 +148,7 @@
             <v-divider></v-divider>
             <v-card-text>
               <p v-if="depositIsUpToAYear" class="warning--text">Please note that this request is irrevocable; Once you push the withdrawn button, there's no cancelling.</p>
-              
+
               <p v-if="!depositIsUpToAYear" class="warning--text">Your deposit has not matured.</p>
             </v-card-text>
             <v-card-actions class="d-flex justify-space-between child-flex-none">
@@ -208,75 +208,75 @@
 </template>
 
 <script>
-import db from '../firebaseInit';
-import { store } from '../store';
+import db from '../firebaseInit'
+import { store } from '../store'
 
 export default {
   $_veeValidate: {
     validator: 'new'
   },
   name: 'MakeWithdrawalPage',
-  data() {
+  data () {
     return {
       formIsProcessing: false
-    };
+    }
   },
 
   computed: {
-    deposit() {
-      return this.$store.getters.specificDeposit;
+    deposit () {
+      return this.$store.getters.specificDeposit
     },
-    depositState() {
-      return this.$store.getters.specificDepositState;
+    depositState () {
+      return this.$store.getters.specificDepositState
     },
-    depostIsActive() {
-      return this.deposit.date_confirmed && this.deposit.status === 'Active';
+    depostIsActive () {
+      return this.deposit.date_confirmed && this.deposit.status === 'Active'
     },
-    amountAccumulated() {
+    amountAccumulated () {
       if (!this.deposit.date_confirmed) {
-        const zero = 0;
-        return zero.toFixed(2);
+        const zero = 0
+        return zero.toFixed(2)
       }
 
-      const amount = this.deposit.amount_deposited;
+      const amount = this.deposit.amount_deposited
 
-      const ratePerDay = this.$store.getters.ratePerYear / 365;
-      const noOfDays = (new Date() - this.deposit.date_confirmed) / 86400000;
-      const interest = amount * ratePerDay * noOfDays;
+      const ratePerDay = this.$store.getters.ratePerYear / 365
+      const noOfDays = (new Date() - this.deposit.date_confirmed) / 86400000
+      const interest = amount * ratePerDay * noOfDays
 
-      return this.numberToCurrencyFormat((amount + interest).toFixed(2));
+      return this.numberToCurrencyFormat((amount + interest).toFixed(2))
     },
 
-    countdown() {
+    countdown () {
       if (!this.deposit.date_confirmed) {
-        return this.$moment.duration(31536000, 'seconds').humanize(true);
+        return this.$moment.duration(31536000, 'seconds').humanize(true)
       }
 
-      const dateConfirmed = this.deposit.date_confirmed;
+      const dateConfirmed = this.deposit.date_confirmed
 
-      const secondsInAYear = 31536000;
-      const secondsElapsed = (new Date() - dateConfirmed) / 1000;
-      const secondsRemaining = secondsInAYear - secondsElapsed;
+      const secondsInAYear = 31536000
+      const secondsElapsed = (new Date() - dateConfirmed) / 1000
+      const secondsRemaining = secondsInAYear - secondsElapsed
 
-      return this.$moment.duration(secondsRemaining, 'seconds').humanize(true);
+      return this.$moment.duration(secondsRemaining, 'seconds').humanize(true)
     },
-    amountAfterAYear() {
+    amountAfterAYear () {
       if (!this.deposit) {
-        const zero = 0;
-        return zero.toFixed(2);
+        const zero = 0
+        return zero.toFixed(2)
       }
-      const amount = this.deposit.amount_deposited;
+      const amount = this.deposit.amount_deposited
 
-      const ratePerYear = this.$store.getters.ratePerYear;
-      const interest = amount * ratePerYear;
+      const ratePerYear = this.$store.getters.ratePerYear
+      const interest = amount * ratePerYear
 
-      return this.numberToCurrencyFormat((amount + interest).toFixed(2));
+      return this.numberToCurrencyFormat((amount + interest).toFixed(2))
     },
-    depositIsUpToAYear() {
+    depositIsUpToAYear () {
       if (!this.deposit) {
-        return null;
+        return null
       }
-      return new Date() - this.deposit.date_confirmed >= 31536000000;
+      return new Date() - this.deposit.date_confirmed >= 31536000000
     }
   },
 
@@ -286,43 +286,43 @@ export default {
 
   beforeRouteEnter: (to, from, next) => {
     if (!store.getters.deposits) {
-      store.dispatch('fetchDeposits');
+      store.dispatch('fetchDeposits')
     }
-    next();
+    next()
   },
 
-  created() {
-    this.fetchData();
+  created () {
+    this.fetchData()
   },
 
-  destroyed() {},
+  destroyed () {},
 
   methods: {
-    fetchData() {
+    fetchData () {
       this.$store.dispatch('fetchSpecificDeposit', {
         id: this.$route.params.id
-      });
+      })
     },
-    numberToCurrencyFormat(n) {
-      return String(n).replace(/(\d)(?=(\d{3})+\.)/g, '$1, ');
+    numberToCurrencyFormat (n) {
+      return String(n).replace(/(\d)(?=(\d{3})+\.)/g, '$1, ')
     },
 
-    requestWithdrawal() {
+    requestWithdrawal () {
       if (!this.depostIsActive) {
-        throw new Error('The Deposit is not Active');
+        throw new Error('The Deposit is not Active')
       }
       if (!this.depositIsUpToAYear) {
         this.$store.dispatch('setSnackbar', {
           text: 'Your deposit has not matured',
           textColor: 'error--text'
-        });
-        return;
+        })
+        return
       }
       this.$store.dispatch('setSnackbar', {
         text: 'Your request is being processed'
-      });
+      })
 
-      this.formIsProcessing = true;
+      this.formIsProcessing = true
 
       db
         .collection('deposits-test')
@@ -332,22 +332,22 @@ export default {
           updatedAt: new Date()
         })
         .then(docRef => {
-          this.formIsProcessing = false;
+          this.formIsProcessing = false
           this.$store.dispatch('setSnackbar', {
             text: 'The withdrawal of your deposit has been Initiated!',
             timeout: 16000,
             textColor: 'success--text'
-          });
-          this.$router.push({ path: `/view-deposit/${this.deposit.id}` });
+          })
+          this.$router.push({ path: `/view-deposit/${this.deposit.id}` })
         })
         .catch(error => {
-          this.formIsProcessing = false;
+          this.formIsProcessing = false
           this.$store.dispatch('setSnackbar', {
             text: error.message,
             timeout: 25000
-          });
-        });
+          })
+        })
     }
   }
-};
+}
 </script>

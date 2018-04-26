@@ -1,6 +1,6 @@
-# supranex
+# supranex-client
 
-> Supranex is a reputable cryptocurrence company that offers the best interest on your Supranex Bitcoin Saving Account and provides an instant cryptocurrency exchange platform with the best crypto-to-crypto rates on the market.
+> Supranex is a reputable cryptocurrency company that offers the best interest on your Supranex Bitcoin Saving Account and provides an instant cryptocurrency exchange platform with the best crypto-to-crypto rates on the market.
 
 ## Build Setup
 

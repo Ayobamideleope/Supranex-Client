@@ -30,14 +30,14 @@
 </template>
 
 <script>
-import { auth } from '../firebaseInit';
+import { auth } from '../firebaseInit'
 
 export default {
   $_veeValidate: {
     validator: 'new'
   },
   name: 'SigninPage',
-  data() {
+  data () {
     return {
       form: {
         email: '',
@@ -46,11 +46,11 @@ export default {
       rememberMe: false,
       showSigninPassword: false,
       formIsProcessing: false
-    };
+    }
   },
 
   methods: {
-    signin() {
+    signin () {
       this.$validator
         .validateAll()
         .then(validity => {
@@ -58,40 +58,38 @@ export default {
             return this.$store.dispatch('setSnackbar', {
               text: 'Please kindly check form for errors.',
               color: 'error'
-            });
+            })
           }
 
           this.$store.dispatch('setSnackbar', {
             text: 'Processing Verification'
-          });
+          })
 
-          this.formIsProcessing = true;
-
-          const vm = this;
+          this.formIsProcessing = true
 
           auth
             .signInWithEmailAndPassword(this.form.email, this.form.password)
             .then(user => {
-              this.clear();
-              this.formIsProcessing = false;
+              this.clear()
+              this.formIsProcessing = false
             })
             .catch(error => {
-              this.formIsProcessing = false;
+              this.formIsProcessing = false
               this.$store.dispatch('setSnackbar', {
                 text: error.message,
                 textColor: 'error--text'
-              });
-            });
+              })
+            })
         })
-        .catch(error => console.error(error));
+        .catch(error => console.error(error))
     },
 
-    clear() {
+    clear () {
       for (let field in this.form) {
-        this.form[field] = '';
+        this.form[field] = ''
       }
-      this.$validator.reset();
+      this.$validator.reset()
     }
   }
-};
+}
 </script>

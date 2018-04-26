@@ -44,14 +44,14 @@
 </template>
 
 <script>
-import { auth } from '../firebaseInit';
+import { auth } from '../firebaseInit'
 
 export default {
   $_veeValidate: {
     validator: 'new'
   },
   name: 'ChangePasswordPage',
-  data() {
+  data () {
     return {
       form: {
         name: '',
@@ -63,39 +63,39 @@ export default {
       showChangePasswordPassword: false,
       showChangePasswordConfirmPassword: false,
       formIsProcessing: false
-    };
+    }
   },
 
   computed: {
-    containsLowerCase() {
-      const lowerCaseRegExp = new RegExp('(.*[a-z])');
-      return lowerCaseRegExp.test(this.form.password);
+    containsLowerCase () {
+      const lowerCaseRegExp = new RegExp('(.*[a-z])')
+      return lowerCaseRegExp.test(this.form.password)
     },
-    containsUpperCase() {
-      const upperCaseRegExp = new RegExp('(.*[A-Z])');
-      return upperCaseRegExp.test(this.form.password);
+    containsUpperCase () {
+      const upperCaseRegExp = new RegExp('(.*[A-Z])')
+      return upperCaseRegExp.test(this.form.password)
     },
-    containsNumbers() {
-      const numberRegExp = new RegExp('(.*[0-9])');
-      return numberRegExp.test(this.form.password);
+    containsNumbers () {
+      const numberRegExp = new RegExp('(.*[0-9])')
+      return numberRegExp.test(this.form.password)
     },
-    containsSymbols() {
-      const symbolRegExp = new RegExp('(.*[-_+!@#$%^&*])');
-      return symbolRegExp.test(this.form.password);
+    containsSymbols () {
+      const symbolRegExp = new RegExp('(.*[-_+!@#$%^&*])')
+      return symbolRegExp.test(this.form.password)
     },
-    isMoreThanMin() {
-      return this.form.password.length >= 8;
+    isMoreThanMin () {
+      return this.form.password.length >= 8
     }
   },
 
   watch: {},
 
-  created() {},
+  created () {},
 
-  destroyed() {},
+  destroyed () {},
 
   methods: {
-    changePassword() {
+    changePassword () {
       this.$validator
         .validateAll()
         .then(validity => {
@@ -103,51 +103,51 @@ export default {
             return this.$store.dispatch('setSnackbar', {
               text: 'Please kindly check form for errors.',
               color: 'error'
-            });
+            })
           }
 
           if (this.form.password !== this.form.confirmPassword) {
             return this.$store.dispatch('setSnackbar', {
               text: 'Passwords do not match.',
               color: 'error'
-            });
+            })
           }
 
           this.$store.dispatch('setSnackbar', {
             text: 'Your request is being processed'
-          });
+          })
 
-          this.formIsProcessing = true;
+          this.formIsProcessing = true
           // Remove previous alerts
-          this.showAlert = false;
+          this.showAlert = false
 
           auth.currentUser
             .updatePassword(this.form.password)
             .then(user => {
-              this.clear();
-              this.formIsProcessing = false;
+              this.clear()
+              this.formIsProcessing = false
               this.$store.dispatch('setSnackbar', {
                 text: 'Your Password has been Changed!'
-              });
-              this.$router.push({ path: '/dashboard' });
+              })
+              this.$router.push({ path: '/dashboard' })
             })
             .catch(error => {
-              this.formIsProcessing = false;
+              this.formIsProcessing = false
               this.$store.dispatch('setSnackbar', {
                 text: error.message,
                 textColor: 'error--text'
-              });
-            });
+              })
+            })
         })
-        .catch(error => console.error(error));
+        .catch(error => console.error(error))
     },
 
-    clear() {
+    clear () {
       for (let field in this.form) {
-        this.form[field] = '';
+        this.form[field] = ''
       }
-      this.$validator.reset();
+      this.$validator.reset()
     }
   }
-};
+}
 </script>

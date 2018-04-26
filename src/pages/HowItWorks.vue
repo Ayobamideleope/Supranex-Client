@@ -25,7 +25,7 @@
       </li>
 
       <li class="mb-3">
-        <span class="body-2">Withdrawal</span> <br> At the end of 365 days of your deposit, your Bitcoin savings will be due for withdrawal. You can click “Withdraw” to withdraw both your capital and your 100% interest. Your withdrawal will be processed within 24 hrs and your funds sent to your Bitcoin address. It’s very simple! 
+        <span class="body-2">Withdrawal</span> <br> At the end of 365 days of your deposit, your Bitcoin savings will be due for withdrawal. You can click “Withdraw” to withdraw both your capital and your 100% interest. Your withdrawal will be processed within 24 hrs and your funds sent to your Bitcoin address. It’s very simple!
       </li>
     </ul>
 

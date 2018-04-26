@@ -189,71 +189,71 @@
 </template>
 
 <script>
-import { store } from '../store';
+import { store } from '../store'
 
 export default {
   $_veeValidate: {
     validator: 'new'
   },
   name: 'ViewDepositPage',
-  data() {
+  data () {
     return {
       form: {
         transactionId: ''
       }
-    };
+    }
   },
 
   computed: {
-    deposit() {
-      return this.$store.getters.specificDeposit;
+    deposit () {
+      return this.$store.getters.specificDeposit
     },
-    depositState() {
-      return this.$store.getters.specificDepositState;
+    depositState () {
+      return this.$store.getters.specificDepositState
     },
-    depositIsActive() {
-      return this.deposit.date_confirmed ? true : false;
+    depositIsActive () {
+      return !!this.deposit.date_confirmed
     },
-    amountAccumulated() {
+    amountAccumulated () {
       if (!this.deposit) {
-        const zero = 0;
-        return zero.toFixed(2);
+        const zero = 0
+        return zero.toFixed(2)
       }
-      const amount = this.deposit.amount_deposited;
+      const amount = this.deposit.amount_deposited
 
-      const ratePerDay = this.$store.getters.ratePerYear / 365;
-      let noOfDays = 0;
+      const ratePerDay = this.$store.getters.ratePerYear / 365
+      let noOfDays = 0
       if (this.deposit.date_confirmed && this.deposit.date_withdrawn) {
         noOfDays =
           (this.deposit.date_withdrawn - this.deposit.date_confirmed) /
-          86400000;
+          86400000
       } else if (this.deposit.date_confirmed) {
         noOfDays = Math.floor(
           (new Date() - this.deposit.date_confirmed) / 86400000
-        );
+        )
       }
-      const interest = amount * ratePerDay * noOfDays;
+      const interest = amount * ratePerDay * noOfDays
 
-      return this.numberToCurrencyFormat((amount + interest).toFixed(2));
+      return this.numberToCurrencyFormat((amount + interest).toFixed(2))
     },
-    countdown() {
+    countdown () {
       if (!this.deposit.date_confirmed) {
-        return this.$moment.duration(31536000, 'seconds').humanize(true);
+        return this.$moment.duration(31536000, 'seconds').humanize(true)
       }
 
-      const dateConfirmed = this.deposit.date_confirmed;
+      const dateConfirmed = this.deposit.date_confirmed
 
-      const secondsInAYear = 31536000;
-      const secondsElapsed = (new Date() - dateConfirmed) / 1000;
-      const secondsRemaining = secondsInAYear - secondsElapsed;
+      const secondsInAYear = 31536000
+      const secondsElapsed = (new Date() - dateConfirmed) / 1000
+      const secondsRemaining = secondsInAYear - secondsElapsed
 
-      return this.$moment.duration(secondsRemaining, 'seconds').humanize(true);
+      return this.$moment.duration(secondsRemaining, 'seconds').humanize(true)
     },
-    depositIsUpToAYear() {
+    depositIsUpToAYear () {
       if (!this.deposit) {
-        return null;
+        return null
       }
-      return new Date() - this.deposit.date_confirmed >= 31536000000;
+      return new Date() - this.deposit.date_confirmed >= 31536000000
     }
   },
 
@@ -263,38 +263,38 @@ export default {
 
   beforeRouteEnter: (to, from, next) => {
     if (!store.getters.deposits) {
-      store.dispatch('fetchDeposits');
+      store.dispatch('fetchDeposits')
     }
-    next();
+    next()
   },
 
-  created() {
-    this.fetchData();
+  created () {
+    this.fetchData()
   },
 
-  destroyed() {},
+  destroyed () {},
 
   methods: {
-    fetchData() {
+    fetchData () {
       this.$store.dispatch('fetchSpecificDeposit', {
         id: this.$route.params.id
-      });
+      })
     },
-    numberToCurrencyFormat(n) {
-      return String(n).replace(/(\d)(?=(\d{3})+\.)/g, '$1, ');
+    numberToCurrencyFormat (n) {
+      return String(n).replace(/(\d)(?=(\d{3})+\.)/g, '$1, ')
     },
-    onDepositIDCopySuccess() {
+    onDepositIDCopySuccess () {
       this.$store.dispatch('setSnackbar', {
         text: 'Deposit ID has been copied to your clipboard',
         textColor: 'success--text'
-      });
+      })
     },
-    onDepositIDCopyError() {
+    onDepositIDCopyError () {
       this.$store.dispatch('setSnackbar', {
         text: 'Could not copy Deposit ID to your clipboard',
         textColor: 'error--text'
-      });
+      })
     }
   }
-};
+}
 </script>

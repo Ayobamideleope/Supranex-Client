@@ -281,12 +281,12 @@
 </template>
 
 <script>
-import PageSectionHeader from '../components/PageSectionHeader';
+import PageSectionHeader from '../components/PageSectionHeader'
 
 export default {
   name: 'HomePage',
 
-  data() {
+  data () {
     return {
       isWelcome: false,
       isWelcomeSavings: false,
@@ -337,32 +337,32 @@ export default {
           answer: 'The withdrawal method is Bitcoin.'
         }
       ]
-    };
-  },
-
-  computed: {
-    savingOutput() {
-      if (this.errors.collect('saving-input').length > 0) return '';
-      const deposit = Number(this.form.saving.input);
-      if (!deposit) return '';
-      const interest = deposit * this.$store.getters.ratePerYear;
-      let total = deposit + interest;
-      return this.numberToCurrencyFormat(total.toFixed(2));
     }
   },
 
-  mounted() {},
+  computed: {
+    savingOutput () {
+      if (this.errors.collect('saving-input').length > 0) return ''
+      const deposit = Number(this.form.saving.input)
+      if (!deposit) return ''
+      const interest = deposit * this.$store.getters.ratePerYear
+      let total = deposit + interest
+      return this.numberToCurrencyFormat(total.toFixed(2))
+    }
+  },
+
+  mounted () {},
 
   methods: {
-    numberToCurrencyFormat(n) {
-      return String(n).replace(/(\d)(?=(\d{3})+\.)/g, '$1, ');
+    numberToCurrencyFormat (n) {
+      return String(n).replace(/(\d)(?=(\d{3})+\.)/g, '$1, ')
     },
-    redirectToDepositPage() {
+    redirectToDepositPage () {
       if (this.errors.collect('saving-input').length > 0) {
         return this.$store.dispatch('setSnackbar', {
           text: 'Please kindly check your saving input for errors.',
           color: 'error'
-        });
+        })
       }
 
       this.$router.push({
@@ -370,17 +370,17 @@ export default {
         query: {
           amount: this.form.saving.input
         }
-      });
+      })
     },
-    sendMessage() {
-      console.log('message is being sent');
+    sendMessage () {
+      console.log('message is being sent')
     }
   },
 
   components: {
     PageSectionHeader
   }
-};
+}
 </script>
 
 <style lang="scss">

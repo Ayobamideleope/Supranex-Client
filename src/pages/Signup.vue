@@ -55,14 +55,14 @@
 </template>
 
 <script>
-import { auth } from '../firebaseInit';
+import { auth } from '../firebaseInit'
 
 export default {
   $_veeValidate: {
     validator: 'new'
   },
   name: 'SignupPage',
-  data() {
+  data () {
     return {
       form: {
         name: '',
@@ -76,44 +76,44 @@ export default {
       showSignupPassword: false,
       showSignupConfirmPassword: false,
       formIsProcessing: false
-    };
+    }
   },
 
   computed: {
-    containsLowerCase() {
-      const lowerCaseRegExp = new RegExp('(.*[a-z])');
-      return lowerCaseRegExp.test(this.form.password);
+    containsLowerCase () {
+      const lowerCaseRegExp = new RegExp('(.*[a-z])')
+      return lowerCaseRegExp.test(this.form.password)
     },
-    containsUpperCase() {
-      const upperCaseRegExp = new RegExp('(.*[A-Z])');
-      return upperCaseRegExp.test(this.form.password);
+    containsUpperCase () {
+      const upperCaseRegExp = new RegExp('(.*[A-Z])')
+      return upperCaseRegExp.test(this.form.password)
     },
-    containsNumbers() {
-      const numberRegExp = new RegExp('(.*[0-9])');
-      return numberRegExp.test(this.form.password);
+    containsNumbers () {
+      const numberRegExp = new RegExp('(.*[0-9])')
+      return numberRegExp.test(this.form.password)
     },
-    containsSymbols() {
-      const symbolRegExp = new RegExp('(.*[-_+!@#$%^&*])');
-      return symbolRegExp.test(this.form.password);
+    containsSymbols () {
+      const symbolRegExp = new RegExp('(.*[-_+!@#$%^&*])')
+      return symbolRegExp.test(this.form.password)
     },
-    isMoreThanMin() {
-      return this.form.password.length >= 8;
+    isMoreThanMin () {
+      return this.form.password.length >= 8
     }
   },
 
   watch: {},
 
-  created() {
+  created () {
     if (this.$route.query.referrer) {
-      this.referrer = this.$route.query.referrer;
-      this.showReferrer = true;
+      this.referrer = this.$route.query.referrer
+      this.showReferrer = true
     }
   },
 
-  destroyed() {},
+  destroyed () {},
 
   methods: {
-    signup() {
+    signup () {
       this.$validator
         .validateAll()
         .then(validity => {
@@ -121,60 +121,58 @@ export default {
             return this.$store.dispatch('setSnackbar', {
               text: 'Please kindly check form for errors.',
               color: 'error'
-            });
+            })
           }
 
           if (this.form.password !== this.form.confirmPassword) {
             return this.$store.dispatch('setSnackbar', {
               text: 'Passwords do not match.',
               color: 'error'
-            });
+            })
           }
 
           this.$store.dispatch('setSnackbar', {
             text: 'Your request is being processed'
-          });
+          })
 
-          this.formIsProcessing = true;
+          this.formIsProcessing = true
           // Remove previous alerts
-          this.showAlert = false;
-
-          const vm = this;
+          this.showAlert = false
 
           auth
             .createUserWithEmailAndPassword(this.form.email, this.form.password)
             .then(user => {
-              this.clear();
-              this.formIsProcessing = false;
+              this.clear()
+              this.formIsProcessing = false
               this.$store.dispatch('setSnackbar', {
                 text: 'Your account has been created!',
                 textColor: 'success--text'
-              });
-              this.$store.dispatch('sendEmailVerification');
+              })
+              this.$store.dispatch('sendEmailVerification')
               if (this.referrer) {
                 this.$store.dispatch('addReferrerToDb', {
                   uid: user.uid,
                   referrer: this.referrer
-                });
+                })
               }
             })
             .catch(error => {
-              this.formIsProcessing = false;
+              this.formIsProcessing = false
               this.$store.dispatch('setSnackbar', {
                 text: error.message,
                 textColor: 'error--text'
-              });
-            });
+              })
+            })
         })
-        .catch(error => console.error(error));
+        .catch(error => console.error(error))
     },
 
-    clear() {
+    clear () {
       for (let field in this.form) {
-        this.form[field] = '';
+        this.form[field] = ''
       }
-      this.$validator.reset();
+      this.$validator.reset()
     }
   }
-};
+}
 </script>

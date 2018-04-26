@@ -84,32 +84,31 @@
 </template>
 
 <script>
-import db from '../firebaseInit';
-import { store } from '../store';
+import { store } from '../store'
 
 export default {
   $_veeValidate: {
     validator: 'new'
   },
   name: 'DashboardPage',
-  data() {
-    return {};
+  data () {
+    return {}
   },
 
   computed: {
-    activeDeposits() {
+    activeDeposits () {
       if (!this.$store.getters.deposits) {
-        return this.$store.getters.deposits; // null
+        return this.$store.getters.deposits // null
       }
 
       return this.$store.getters.deposits.filter(
         value => value.date_confirmed && value.status === 'Active'
-      );
+      )
     },
-    amountOfActiveDeposits() {
+    amountOfActiveDeposits () {
       if (!this.activeDeposits) {
-        const zero = 0;
-        return zero.toFixed(2);
+        const zero = 0
+        return zero.toFixed(2)
       }
       return this.numberToCurrencyFormat(
         this.activeDeposits
@@ -118,12 +117,12 @@ export default {
             0
           )
           .toFixed(2)
-      );
+      )
     },
-    interestsAccured() {
+    interestsAccured () {
       if (!this.activeDeposits) {
-        const zero = 0;
-        return zero.toFixed(2);
+        const zero = 0
+        return zero.toFixed(2)
       }
       return this.numberToCurrencyFormat(
         this.activeDeposits
@@ -133,26 +132,26 @@ export default {
             0
           )
           .toFixed(2)
-      );
+      )
     },
-    countdownToNext() {
+    countdownToNext () {
       if (!this.activeDeposits || !this.activeDeposits[0]) {
-        return 'No Active Deposit';
+        return 'No Active Deposit'
       }
 
-      const dateConfirmed = this.activeDeposits[0].date_confirmed;
+      const dateConfirmed = this.activeDeposits[0].date_confirmed
 
-      const secondsInAYear = 31536000;
-      const secondsElapsed = (new Date() - dateConfirmed) / 1000;
-      const secondsRemaining = secondsInAYear - secondsElapsed;
+      const secondsInAYear = 31536000
+      const secondsElapsed = (new Date() - dateConfirmed) / 1000
+      const secondsRemaining = secondsInAYear - secondsElapsed
 
-      return this.$moment.duration(secondsRemaining, 'seconds').humanize(true);
+      return this.$moment.duration(secondsRemaining, 'seconds').humanize(true)
     },
-    noOfActiveDeposits() {
+    noOfActiveDeposits () {
       if (!this.activeDeposits) {
-        return 0;
+        return 0
       }
-      return this.activeDeposits.length;
+      return this.activeDeposits.length
     }
   },
 
@@ -160,33 +159,33 @@ export default {
 
   beforeRouteEnter: (to, from, next) => {
     if (!store.getters.deposits) {
-      store.dispatch('fetchDeposits');
+      store.dispatch('fetchDeposits')
     }
-    next();
+    next()
   },
 
-  created() {},
+  created () {},
 
-  destroyed() {},
+  destroyed () {},
 
   methods: {
-    interestAccumulated(deposit) {
+    interestAccumulated (deposit) {
       if (!deposit) {
-        const zero = 0;
-        return zero.toFixed(2);
+        const zero = 0
+        return zero.toFixed(2)
       }
-      const amount = deposit.amount_deposited;
+      const amount = deposit.amount_deposited
 
-      const ratePerDay = this.$store.getters.ratePerYear / 365;
-      let noOfDays = 0;
+      const ratePerDay = this.$store.getters.ratePerYear / 365
+      let noOfDays = 0
       if (deposit.date_confirmed) {
-        noOfDays = (new Date() - deposit.date_confirmed) / 86400000;
+        noOfDays = (new Date() - deposit.date_confirmed) / 86400000
       }
-      return amount * ratePerDay * noOfDays; // interest
+      return amount * ratePerDay * noOfDays // interest
     },
-    numberToCurrencyFormat(n) {
-      return String(n).replace(/(\d)(?=(\d{3})+\.)/g, '$1, ');
+    numberToCurrencyFormat (n) {
+      return String(n).replace(/(\d)(?=(\d{3})+\.)/g, '$1, ')
     }
   }
-};
+}
 </script>

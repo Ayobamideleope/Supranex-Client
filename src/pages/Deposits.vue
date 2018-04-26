@@ -112,14 +112,14 @@
 </template>
 
 <script>
-import { store } from '../store';
+import { store } from '../store'
 
 export default {
   $_veeValidate: {
     validator: 'new'
   },
   name: 'DepositsPage',
-  data() {
+  data () {
     return {
       search: '',
       headers: [
@@ -135,50 +135,50 @@ export default {
         { text: 'Status', value: 'status' },
         { text: 'Actions', sortable: false }
       ]
-    };
+    }
   },
 
   computed: {
-    deposits() {
-      return this.$store.getters.deposits;
+    deposits () {
+      return this.$store.getters.deposits
     },
 
-    rejectedDeposits() {
+    rejectedDeposits () {
       if (!this.deposits) {
-        return this.deposits; // null
+        return this.deposits // null
       }
 
       return this.deposits.filter(
         value => value.date_rejected && value.status === 'Rejected'
-      ).length;
+      ).length
     },
 
-    unconfirmedDeposits() {
+    unconfirmedDeposits () {
       if (!this.deposits) {
-        return this.deposits; // null
+        return this.deposits // null
       }
 
       return this.deposits.filter(
         value => value.date_initialized && value.status === 'Initialized'
-      ).length;
+      ).length
     },
 
-    activeDeposits() {
+    activeDeposits () {
       if (!this.deposits) {
-        return this.deposits; // null
+        return this.deposits // null
       }
 
       return this.deposits.filter(
         value => value.date_confirmed && value.status === 'Active'
-      ).length;
+      ).length
     },
 
-    allDeposits() {
+    allDeposits () {
       if (!this.deposits) {
-        return this.deposits; // null
+        return this.deposits // null
       }
 
-      return this.deposits.length;
+      return this.deposits.length
     }
   },
 
@@ -186,39 +186,39 @@ export default {
 
   beforeRouteEnter: (to, from, next) => {
     if (!store.getters.deposits) {
-      store.dispatch('fetchDeposits');
+      store.dispatch('fetchDeposits')
     }
-    next();
+    next()
   },
 
-  created() {},
+  created () {},
 
-  destroyed() {},
+  destroyed () {},
 
   methods: {
-    countdown(deposit) {
-      const dateConfirmed = deposit.date_confirmed;
+    countdown (deposit) {
+      const dateConfirmed = deposit.date_confirmed
 
       if (!dateConfirmed) {
-        return this.$moment.duration(31536000, 'seconds').humanize(true);
+        return this.$moment.duration(31536000, 'seconds').humanize(true)
       }
 
-      const secondsInAYear = 31536000;
-      const secondsElapsed = (new Date() - dateConfirmed) / 1000;
-      const secondsRemaining = secondsInAYear - secondsElapsed;
+      const secondsInAYear = 31536000
+      const secondsElapsed = (new Date() - dateConfirmed) / 1000
+      const secondsRemaining = secondsInAYear - secondsElapsed
 
-      return this.$moment.duration(secondsRemaining, 'seconds').humanize(true);
+      return this.$moment.duration(secondsRemaining, 'seconds').humanize(true)
     },
-    filterDeposits(search) {
-      console.log('filter deposits by ' + search);
-      this.search = search;
+    filterDeposits (search) {
+      console.log('filter deposits by ' + search)
+      this.search = search
     },
-    depositIsUpToAYear(date_confirmed) {
+    depositIsUpToAYear (dateConfirmed) {
       if (!this.deposit) {
-        return null;
+        return null
       }
-      return new Date() - date_confirmed >= 31536000000;
+      return new Date() - dateConfirmed >= 31536000000
     }
   }
-};
+}
 </script>
