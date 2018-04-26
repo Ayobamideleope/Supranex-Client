@@ -241,7 +241,9 @@ export default {
       const amount = this.deposit.amount_deposited
 
       const ratePerDay = this.$store.getters.ratePerYear / 365
-      const noOfDays = Math.floor((new Date() - this.deposit.date_confirmed) / 86400000)
+      let noOfDays = Math.floor((new Date() - this.deposit.date_confirmed) / 86400000)
+      if (noOfDays > 366) { noOfDays = 366 }
+
       const interest = amount * ratePerDay * noOfDays
 
       return this.numberToCurrencyFormat((amount + interest).toFixed(2))

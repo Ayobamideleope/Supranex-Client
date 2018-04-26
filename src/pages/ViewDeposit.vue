@@ -232,6 +232,7 @@ export default {
         noOfDays = Math.floor(
           (new Date() - this.deposit.date_confirmed) / 86400000
         )
+        if (noOfDays > 366) { noOfDays = 366 }
       }
       const interest = amount * ratePerDay * noOfDays
 
