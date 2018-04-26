@@ -224,9 +224,10 @@ export default {
       const ratePerDay = this.$store.getters.ratePerYear / 365
       let noOfDays = 0
       if (this.deposit.date_confirmed && this.deposit.date_withdrawn) {
-        noOfDays =
+        noOfDays = Math.floor(
           (this.deposit.date_withdrawn - this.deposit.date_confirmed) /
           86400000
+        )
       } else if (this.deposit.date_confirmed) {
         noOfDays = Math.floor(
           (new Date() - this.deposit.date_confirmed) / 86400000
