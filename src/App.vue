@@ -94,10 +94,14 @@
         <v-layout wrap align-baseline>
           <v-flex xs12 sm3 class="black--text pt-2">Copyright © Supranex 2017 - {{ new Date().getFullYear() }}</v-flex>
           <v-flex xs12 sm8 offset-sm1>
-            <v-layout align-baseline justify-end :class="{'child-flex-none': $vuetify.breakpoint.smAndUp, }">
-              <v-flex tag="a" href="#" class="p-3 black--text">Privacy Policy</v-flex>
+            <v-layout align-baseline justify-end :class="{'child-flex-none': $vuetify.breakpoint.smAndUp, }" wrap>
+              <v-flex>
+                <a href="https://www.supranex.com/privacy-policy.html" class="footer__other-link black--text">Privacy Policy</a>
+              </v-flex>
               <v-flex tag="span" class="p-3 black--text">|</v-flex>
-              <v-flex tag="a" href="#" class="p-3 black--text">Terms and Conditions</v-flex>
+              <v-flex>
+                <a href="https://www.supranex.com/terms-and-conditions.html" class="footer__other-link black--text">Terms and Conditions</a>
+              </v-flex>
             </v-layout>
           </v-flex>
 
@@ -379,6 +383,14 @@ export default {
 </script>
 
 <style>
+.footer__other-link {
+  text-decoration: transparent;
+  transition: all 0.6s;
+}
+.footer__other-link:hover {
+  text-decoration: underline;
+}
+
 .footer__social-icon-img {
   height: 32px;
   width: 32px;
