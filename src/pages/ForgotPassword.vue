@@ -59,7 +59,9 @@ export default {
           this.showAlert = false;
 
           auth
-            .sendPasswordResetEmail(this.form.email)
+            .sendPasswordResetEmail(this.form.email, {
+              url: 'https://www.supranex.com/dashboard/'
+            })
             .then(user => {
               this.clear();
               this.formIsProcessing = false;
