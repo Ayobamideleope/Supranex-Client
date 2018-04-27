@@ -83,7 +83,7 @@
             <div>
               <p>A verification message has been sent to your email. Please use the link to verify your account so you can enjoy all that supranex offers.</p>
               <p>Can't find the mail?
-                <v-btn flat color="accent" round class="text-capitalize">Resend Verification</v-btn>
+                <v-btn flat color="accent" round class="text-capitalize" @click="$store.dispatch('sendEmailVerification')">Resend Verification</v-btn>
               </p>
             </div>
           </transition>
