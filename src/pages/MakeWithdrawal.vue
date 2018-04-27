@@ -6,7 +6,7 @@
           <v-flex xs10 sm3 md3 class="mb-5">
             <v-card style="background-image: url('/static/images/overlays/08.png'); background-repeat: repeat;" color="info" class="h-100 d-flex flex-column white--text" raised>
               <v-card-title primary-title class="bg-transparent-dark justify-center">
-                <h2 class="display-2 text-xs-center text-elevation">$ {{ deposit.amount_deposited }}</h2>
+                <h2 class="display-1 text-xs-center text-elevation">$ {{ deposit.amount_deposited }}</h2>
               </v-card-title>
               <v-divider dark class="flex-none"></v-divider>
               <v-card-text class="flex-none font-all-caps bg-transparent-dark">
@@ -25,7 +25,7 @@
           <v-flex xs10 sm4 class="mb-5">
             <v-card style="background-image: url('/static/images/overlays/08.png'); background-repeat: repeat;" color="success" class="h-100 d-flex flex-column white--text" raised>
               <v-card-title primary-title class="bg-transparent-dark justify-center">
-                <h3 class="display-2 text-xs-center text-elevation">$ {{ amountAccumulated }}</h3>
+                <h3 class="display-1 text-xs-center text-elevation">$ {{ amountAccumulated }}</h3>
               </v-card-title>
               <v-divider dark class="flex-none"></v-divider>
               <v-card-text class="flex-none font-all-caps bg-transparent-dark">
@@ -62,7 +62,7 @@
           <v-flex xs10 sm4 class="mb-5">
             <v-card style="background-image: url('/static/images/overlays/08.png'); background-repeat: repeat;" class="h-100 d-flex flex-column white--text bg-primary-dark" raised>
               <v-card-title primary-title class="bg-transparent-dark justify-center">
-                <h3 class="display-2 text-xs-center text-elevation">$ {{ amountAfterAYear }}</h3>
+                <h3 class="display-1 text-xs-center text-elevation">$ {{ amountAfterAYear }}</h3>
               </v-card-title>
               <v-divider dark class="flex-none"></v-divider>
               <v-card-text class="flex-none font-all-caps bg-transparent-dark">

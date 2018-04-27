@@ -24,7 +24,7 @@
           <v-flex xs10 sm4 md3 class="mb-5">
             <v-card style="background-image: url('/static/images/overlays/08.png'); background-repeat: repeat;" color="info" class="h-100 d-flex flex-column white--text" raised>
               <v-card-title primary-title class="bg-transparent-dark justify-center">
-                <h2 class="display-2 text-xs-center text-elevation">$ {{ deposit.amount_deposited }}</h2>
+                <h2 class="display-1 text-xs-center text-elevation">$ {{ deposit.amount_deposited }}</h2>
               </v-card-title>
               <v-divider dark class="flex-none"></v-divider>
               <v-card-text class="flex-none font-all-caps bg-transparent-dark">
@@ -36,7 +36,7 @@
           <v-flex xs10 sm4 class="mb-5">
             <v-card style="background-image: url('/static/images/overlays/08.png'); background-repeat: repeat;" color="success" class="h-100 d-flex flex-column white--text" raised>
               <v-card-title primary-title class="bg-transparent-dark justify-center">
-                <h2 class="display-2 text-xs-center text-elevation">$ {{ amountAccumulated }}</h2>
+                <h2 class="display-1 text-xs-center text-elevation">$ {{ amountAccumulated }}</h2>
               </v-card-title>
               <v-divider dark class="flex-none"></v-divider>
               <v-card-text class="flex-none font-all-caps bg-transparent-dark">
@@ -130,6 +130,18 @@
                 <v-list-tile v-if="deposit.date_confirmed">
                   <v-list-tile-content>Date Confirmed:</v-list-tile-content>
                   <v-list-tile-content class="align-end">{{ $moment(deposit.date_confirmed).fromNow() }}</v-list-tile-content>
+                </v-list-tile>
+                <v-list-tile v-if="deposit.date_withdrawing">
+                  <v-list-tile-content>Date Withdrawal was requested:</v-list-tile-content>
+                  <v-list-tile-content class="align-end">{{ $moment(deposit.date_withdrawing).fromNow() }}</v-list-tile-content>
+                </v-list-tile>
+                <v-list-tile v-if="deposit.date_withdrawn">
+                  <v-list-tile-content>Date Withdrawn:</v-list-tile-content>
+                  <v-list-tile-content class="align-end">{{ $moment(deposit.date_withdrawn).fromNow() }}</v-list-tile-content>
+                </v-list-tile>
+                <v-list-tile v-if="deposit.date_rejected">
+                  <v-list-tile-content>Date Rejected:</v-list-tile-content>
+                  <v-list-tile-content class="align-end">{{ $moment(deposit.date_rejected).fromNow() }}</v-list-tile-content>
                 </v-list-tile>
               </v-list>
               <v-divider v-if="deposit.account_info"></v-divider>

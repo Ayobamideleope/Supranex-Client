@@ -7,7 +7,7 @@
         <v-flex xs10 sm4 md3 class="mb-5">
           <v-card style="background-image: url('/static/images/overlays/08.png'); background-repeat: repeat;" color="success" class="h-100 d-flex flex-column white--text" raised>
             <v-card-title primary-title class="bg-transparent-dark justify-center">
-              <h2 class="display-2 text-xs-center text-elevation">$ {{ amountOfActiveDeposits }}</h2>
+              <h2 class="display-1 text-xs-center text-elevation">$ {{ amountOfActiveDeposits }}</h2>
             </v-card-title>
             <v-divider dark class="flex-none"></v-divider>
             <v-card-text class="flex-none font-all-caps bg-transparent-dark">
@@ -19,7 +19,7 @@
         <v-flex xs10 sm3 class="mb-5">
           <v-card style="background-image: url('/static/images/overlays/08.png'); background-repeat: repeat;" color="info" class="h-100 d-flex flex-column white--text" raised>
             <v-card-title primary-title class="bg-transparent-dark justify-center">
-              <h2 class="headline text-xs-center text-elevation">$ {{ interestsAccured }}</h2>
+              <h2 class="display-1 text-xs-center text-elevation">$ {{ interestsAccured }}</h2>
             </v-card-title>
             <v-divider dark class="flex-none"></v-divider>
             <v-card-text class="flex-none font-all-caps bg-transparent-dark">
@@ -53,6 +53,16 @@
         </v-layout>
       </transition>
 
+    </v-container>
+
+    <v-divider></v-divider>
+
+    <v-container class="p-3 py-md-5">
+      <v-layout wrap justify-end class="child-flex-none">
+
+        <v-btn small color="primary" class="text-capitalize" to="/deposits">
+          <v-icon left small>fa-gem</v-icon>Deposits</v-btn>
+      </v-layout>
     </v-container>
 
     <v-divider></v-divider>
@@ -179,7 +189,8 @@ export default {
       const ratePerDay = this.$store.getters.ratePerYear / 365
       let noOfDays = 0
       if (deposit.date_confirmed) {
-        noOfDays = (new Date() - deposit.date_confirmed) / 86400000
+        noOfDays = Math.floor((new Date() - deposit.date_confirmed) / 86400000)
+        if (noOfDays > 366) { noOfDays = 366 }
       }
       return amount * ratePerDay * noOfDays // interest
     },

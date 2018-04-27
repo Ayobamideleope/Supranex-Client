@@ -100,9 +100,9 @@
     <v-divider></v-divider>
 
     <v-container class="p-3 pt-md-5 pb-6">
-      <v-layout wrap justify-space-between class="child-flex-none">
-        <v-btn small color="primary" class="text-capitalize" to="/make-deposit">
-          <v-icon left small>fa-cloud-download-alt</v-icon>Withdrawals</v-btn>
+      <v-layout wrap justify-end class="child-flex-none">
+        <!-- <v-btn small color="primary" class="text-capitalize" to="/make-deposit">
+          <v-icon left small>fa-cloud-download-alt</v-icon>Withdrawals</v-btn> -->
 
         <v-btn small color="primary" class="text-capitalize" to="/dashboard">
           <v-icon left small>fa-user</v-icon>Dashboard</v-btn>
