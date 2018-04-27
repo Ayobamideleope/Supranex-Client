@@ -82,9 +82,10 @@ export const store = new Vuex.Store({
     },
 
     setDeposits (state, payload) {
-      // console.dir(['about to set deposits', payload.data]);
+      // console.dir(['about to set deposits', payload.data])
+
       state.deposits.data = payload.data
-      // console.dir(state.deposits);
+      // console.dir(state.deposits)
     },
     setDepositsState (state, payload) {
       state.deposits.state = payload.state
@@ -177,7 +178,6 @@ export const store = new Vuex.Store({
         .update({
           referrer
         })
-      console.log('there"s wonder')
     },
     fetchOtherUserData ({
       getters,
@@ -217,7 +217,7 @@ export const store = new Vuex.Store({
         state: 'loading'
       })
 
-      db
+      return db
         .collection('deposits-test')
         .where('uid', '==', state.user.uid)
         .orderBy('createdAt', 'desc')
@@ -229,6 +229,33 @@ export const store = new Vuex.Store({
               let data = doc.data()
               data['id'] = doc.id
               // console.log(['data and id: ', data]);
+              if (data.date_initialized) {
+                data['date_initialized'] = data.date_initialized.toDate()
+              }
+
+              if (data.date_confirmed) {
+                data['date_confirmed'] = data.date_confirmed.toDate()
+              }
+
+              if (data.date_withdrawing) {
+                data['date_withdrawing'] = data.date_withdrawing.toDate()
+              }
+
+              if (data.date_withdrawn) {
+                data['date_withdrawn'] = data.date_withdrawn.toDate()
+              }
+
+              if (data.date_rejected) {
+                data['date_rejected'] = data.date_rejected.toDate()
+              }
+
+              if (data.createdAt) {
+                data['createdAt'] = data.createdAt.toDate()
+              }
+
+              if (data.updatedAt) {
+                data['updatedAt'] = data.updatedAt.toDate()
+              }
               fetchedDeposits.push(data)
             })
             commit('setDeposits', {
@@ -336,6 +363,34 @@ export const store = new Vuex.Store({
           if (doc.exists) {
             let deposit = doc.data()
             deposit['id'] = doc.id
+
+            if (deposit.date_initialized) {
+              deposit['date_initialized'] = deposit.date_initialized.toDate()
+            }
+
+            if (deposit.date_confirmed) {
+              deposit['date_confirmed'] = deposit.date_confirmed.toDate()
+            }
+
+            if (deposit.date_withdrawing) {
+              deposit['date_withdrawing'] = deposit.date_withdrawing.toDate()
+            }
+
+            if (deposit.date_withdrawn) {
+              deposit['date_withdrawn'] = deposit.date_withdrawn.toDate()
+            }
+
+            if (deposit.date_rejected) {
+              deposit['date_rejected'] = deposit.date_rejected.toDate()
+            }
+
+            if (deposit.createdAt) {
+              deposit['createdAt'] = deposit.createdAt.toDate()
+            }
+
+            if (deposit.updatedAt) {
+              deposit['updatedAt'] = deposit.updatedAt.toDate()
+            }
             return [true, deposit]
           } else {
             return [false, null]

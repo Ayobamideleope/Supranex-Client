@@ -5,6 +5,9 @@ import firebaseConfig from './firebaseConfig'
 const firebaseApp = firebase.initializeApp(firebaseConfig)
 
 const firestore = firebaseApp.firestore()
+firestore.settings({
+  timestampsInSnapshots: true
+})
 const auth = firebaseApp.auth()
 const storage = firebaseApp.storage()
 
