@@ -62,7 +62,7 @@
               <v-data-table :headers="headers" :items="deposits" :search="search" disable-initial-sort>
                 <template slot="items" slot-scope="props">
                   <!-- <td>{{ $moment(props.item.date_initialized).fromNow() }}</td> -->
-                  <td>{{ countdown(props.item) }}</td>
+                  <td>{{ countup(props.item) }}</td>
                   <td>{{ props.item.amount_deposited }}</td>
                   <td :class="{'accent--text': props.item.status === 'Initialized', 'success--text': props.item.status === 'Active', 'secondary--text': props.item.status === 'Yielded', 'info--text': props.item.status === 'Withdrawing', 'secondary--text': props.item.status === 'Withdrawn', 'error--text': props.item.status === 'Rejected'}">{{ props.item.status }}</td>
                   <td>
@@ -73,15 +73,18 @@
                       <span>View Deposit</span>
                     </v-tooltip>
 
-                    <v-tooltip top transition="scale-transition" v-if="props.item.status === 'Active' && depositIsUpToAYear(props.item.date_confirmed)">
-                      <v-btn slot="activator" small flat icon :to="`/make-withdrawal/${props.item.id}`">
+                    <v-tooltip top transition="scale-transition" v-if="props.item.status === 'Active'">
+                      <v-btn slot="activator" :disabled="!depositIsUpToAYear(props.item.date_confirmed)" small flat icon :to="`/make-withdrawal/${props.item.id}`">
                         <v-icon color="accent" small>fa-cloud-download-alt</v-icon>
                       </v-btn>
                       <span>Withdraw</span>
                     </v-tooltip>
                   </td>
                 </template>
-                <v-alert slot="no-results" :value="true" color="error" icon="warning">
+                <v-alert slot="no-data" :value="true" color="error" icon="warning">
+                  No Data. You might be yet to make a deposit. Or there is a problem with your connection.
+                </v-alert>
+                <v-alert slot="no-results" :value="true" color="warning" icon="warning">
                   Your search for "{{ search }}" found no deposits.
                 </v-alert>
               </v-data-table>
@@ -124,7 +127,7 @@ export default {
       search: '',
       headers: [
         {
-          text: 'Date',
+          text: 'Active Days',
           align: 'left',
           value: 'date_initialized'
         },
@@ -196,18 +199,19 @@ export default {
   destroyed () {},
 
   methods: {
-    countdown (deposit) {
-      const dateConfirmed = deposit.date_confirmed
-
-      if (!dateConfirmed) {
-        return this.$moment.duration(31536000, 'seconds').humanize(true)
+    countup (deposit) {
+      if (!deposit.date_confirmed) {
+        return 'Not Active'
       }
 
-      const secondsInAYear = 31536000
-      const secondsElapsed = (new Date() - dateConfirmed) / 1000
-      const secondsRemaining = secondsInAYear - secondsElapsed
+      const dateConfirmed = deposit.date_confirmed
+      const daysElapsed = Math.floor((new Date() - dateConfirmed) / 86400000)
 
-      return this.$moment.duration(secondsRemaining, 'seconds').humanize(true)
+      if (daysElapsed < 365) {
+        return daysElapsed
+      } else {
+        return 'Yielded'
+      }
     },
     filterDeposits (search) {
       console.log('filter deposits by ' + search)
