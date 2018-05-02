@@ -33,7 +33,7 @@ const router = new Router({
     // },
     {
       path: '/',
-      redirect: '/signup'
+      redirect: '/view-deposit'
     },
     {
       path: '/signup',
