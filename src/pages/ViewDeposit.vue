@@ -36,11 +36,11 @@
           <v-flex xs10 sm4 class="mb-5">
             <v-card style="background-image: url('/static/images/overlays/08.png'); background-repeat: repeat;" color="success" class="h-100 d-flex flex-column white--text" raised>
               <v-card-title primary-title class="bg-transparent-dark justify-center">
-                <h2 class="display-1 text-xs-center text-elevation">$ {{ amountAccumulated }}</h2>
+                <h2 class="display-1 text-xs-center text-elevation">$ {{ interestAccumulated }}</h2>
               </v-card-title>
               <v-divider dark class="flex-none"></v-divider>
               <v-card-text class="flex-none font-all-caps bg-transparent-dark">
-                Amount Accumulated
+                Interest Accumulated
               </v-card-text>
             </v-card>
           </v-flex>
@@ -48,11 +48,11 @@
           <v-flex xs10 sm3 class="mb-5">
             <v-card style="background-image: url('/static/images/overlays/08.png'); background-repeat: repeat;" class="h-100 d-flex flex-column bg-primary-dark white--text" raised>
               <v-card-title primary-title class="bg-transparent-dark justify-center">
-                <h3 class="headline text-xs-center text-elevation" v-text="countdown"></h3>
+                <h3 class="headline text-xs-center text-elevation" v-text="countup"></h3>
               </v-card-title>
               <v-divider dark class="flex-none"></v-divider>
               <v-card-text class="flex-none font-all-caps bg-transparent-dark">
-                Countdown
+                Active Days
               </v-card-text>
             </v-card>
           </v-flex>
@@ -159,8 +159,8 @@
             </v-card>
           </v-flex>
 
-          <v-flex xs12 d-flex justify-center class="mb-5 child-flex-none" v-if="deposit.status === 'Active' && depositIsUpToAYear">
-            <v-btn :disabled="!depositIsActive" small color="primary" :to="`/make-withdrawal/${deposit.id}`">
+          <v-flex xs12 d-flex justify-center class="mb-5 child-flex-none">
+            <v-btn :disabled="!depositIsActive || !depositIsUpToAYear" small color="primary" :to="`/make-withdrawal/${deposit.id}`">
               <v-icon left small>fa-cloud-download-alt</v-icon>Withdraw Now</v-btn>
           </v-flex>
         </v-layout>
@@ -226,7 +226,7 @@ export default {
     depositIsActive () {
       return !!this.deposit.date_confirmed
     },
-    amountAccumulated () {
+    interestAccumulated () {
       if (!this.deposit) {
         const zero = 0
         return zero.toFixed(2)
@@ -248,20 +248,21 @@ export default {
       }
       const interest = amount * ratePerDay * noOfDays
 
-      return this.numberToCurrencyFormat((amount + interest).toFixed(2))
+      return this.numberToCurrencyFormat(interest.toFixed(2))
     },
-    countdown () {
+    countup () {
       if (!this.deposit.date_confirmed) {
-        return this.$moment.duration(31536000, 'seconds').humanize(true)
+        return '365'
       }
 
       const dateConfirmed = this.deposit.date_confirmed
+      const daysElapsed = Math.floor((new Date() - dateConfirmed) / 86400000)
 
-      const secondsInAYear = 31536000
-      const secondsElapsed = (new Date() - dateConfirmed) / 1000
-      const secondsRemaining = secondsInAYear - secondsElapsed
-
-      return this.$moment.duration(secondsRemaining, 'seconds').humanize(true)
+      if (daysElapsed < 365) {
+        return daysElapsed
+      } else {
+        return 'Yielded'
+      }
     },
     depositIsUpToAYear () {
       if (!this.deposit) {
