@@ -1,8 +1,8 @@
 @import 'variables';
 @import 'mixins/screen-reader';
 @import 'mixins/breakpoints';
-@import 'mixins/grid-layout';
-@import 'mixins/background-variants';
+// @import 'mixins/grid-layout';
+// @import 'mixins/background-variants';
 
 @mixin abs-center {
   left: 50%;
