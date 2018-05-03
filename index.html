@@ -11,6 +11,79 @@
   <meta name="theme-color" content="#28a745">
   <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700|Material+Icons" rel="stylesheet">
 
+  <link rel="stylesheet" href="<%= htmlWebpackPlugin.files.publicPath %>static/fonts/fa-svg-with-js.css">
+
+  <style>
+    .app-pre-loader {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      z-index: 17000000;
+      background: #fbfdff;
+      transtion: opacity .5s;
+    }
+
+    .app-pre-loader__circle {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      will-change: transform;
+      will-change: background-color;
+    }
+
+    @keyframes blue-circle {
+      0% {
+        transform: translateX(12.5%);
+        background-color: #10355a;
+      }
+
+      50% {
+        transform: translateX(87.5%);
+        background-color: #ffa500;
+      }
+
+      100% {
+        transform: translateX(12.5%);
+        background-color: #10355a;
+      }
+    }
+
+    .app-pre-loader__circle--blue {
+      background-color: #10355a;
+      transform: translateX(12.5%);
+      animation: blue-circle 5s infinite;
+    }
+
+    @keyframes orange-circle {
+      0% {
+        background-color: #ffa500;
+        transform: translateX(-12.5%);
+      }
+
+      50% {
+        background-color: #10355a;
+        transform: translateX(-87.5%);
+      }
+
+      100% {
+        background-color: #ffa500;
+        transform: translateX(-12.5%);
+      }
+    }
+
+    .app-pre-loader__circle--orange {
+      background-color: #ffa500;
+      transform: translateX(-12.5%);
+      animation: orange-circle 5s infinite;
+    }
+
+  </style>
+
   <!--Start of Zendesk Chat Script-->
   <script type="text/javascript">
     window.$zopim || (function (d, s) {
@@ -42,7 +115,14 @@
 <body>
   <div id="app"></div>
 
-  <script defer src="<%= htmlWebpackPlugin.files.publicPath %>static/fonts/fontawesome-all.min.js"></script>
+  <div class="app-pre-loader">
+    <div class="app-pre-loader__circle app-pre-loader__circle--blue"></div>
+    <div class="app-pre-loader__circle app-pre-loader__circle--orange"></div>
+  </div>
+
+  <script defer src="<%= htmlWebpackPlugin.files.publicPath %>static/fonts/fontawesome.min.js"></script>
+  <script defer src="<%= htmlWebpackPlugin.files.publicPath %>static/fonts/fa-v4-shims.min.js"></script>
+  <script defer src="<%= htmlWebpackPlugin.files.publicPath %>static/fonts/fa-solid.min.js"></script>
   <script>
     FontAwesomeConfig = {
       autoReplaceSvg: 'nest'
