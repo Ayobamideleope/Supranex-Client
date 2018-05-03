@@ -42,30 +42,30 @@ Vue.use(VueClipboard)
 
 Vue.config.productionTip = false
 
-/* eslint-disable no-new */
-new Vue({
-  el: '#app',
-  router,
-  store,
-  beforeCreate () {
-    auth.onAuthStateChanged(user => {
-      if (user) {
-        this.$store.dispatch('signin', {
-          email: user.email,
-          emailVerified: user.emailVerified,
-          uid: user.uid,
-          providerData: user.providerData
-        })
-      }
-      /* else {
-             this.$store.dispatch('signout');
-           } */
+let app
+
+auth.onAuthStateChanged(user => {
+  if (user) {
+    store.dispatch('signin', {
+      email: user.email,
+      emailVerified: user.emailVerified,
+      uid: user.uid,
+      providerData: user.providerData
     })
-  },
-  components: {
-    App
-  },
-  render (h) {
-    return h(App)
+  }
+
+  if (!app) {
+    /* eslint-disable no-new */
+    app = new Vue({
+      el: '#app',
+      router,
+      store,
+      components: {
+        App
+      },
+      render (h) {
+        return h(App)
+      }
+    })
   }
 })
