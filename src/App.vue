@@ -314,7 +314,11 @@ export default {
     }
   },
 
-  created () {},
+  mounted () {
+    const appPreLoaderEl = document.querySelector('.app-pre-loader')
+    appPreLoaderEl.style.opacity = 0
+    appPreLoaderEl.style.visibility = 'hidden'
+  },
 
   computed: {
     showSnackbar: {
