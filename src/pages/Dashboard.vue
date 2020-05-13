@@ -144,19 +144,6 @@ export default {
           .toFixed(2)
       )
     },
-    countdownToNext () {
-      if (!this.activeDeposits || !this.activeDeposits[0]) {
-        return 'No Active Deposit'
-      }
-
-      const dateConfirmed = this.activeDeposits[0].date_confirmed
-
-      const secondsInAYear = 31536000
-      const secondsElapsed = (new Date() - dateConfirmed) / 1000
-      const secondsRemaining = secondsInAYear - secondsElapsed
-
-      return this.$moment.duration(secondsRemaining, 'seconds').humanize(true)
-    },
     noOfActiveDeposits () {
       if (!this.activeDeposits) {
         return 0
@@ -190,7 +177,7 @@ export default {
       let noOfDays = 0
       if (deposit.date_confirmed) {
         noOfDays = Math.floor((new Date() - deposit.date_confirmed) / 86400000)
-        if (noOfDays > 366) { noOfDays = 366 }
+        if (noOfDays > 365) { noOfDays = 365 }
       }
       return amount * ratePerDay * noOfDays // interest
     },

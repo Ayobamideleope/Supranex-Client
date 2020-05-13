@@ -160,8 +160,13 @@
           </v-flex>
 
           <v-flex xs12 d-flex justify-center class="mb-5 child-flex-none">
-            <v-btn :disabled="!depositIsActive || !depositIsUpToAYear" small color="primary" :to="`/make-withdrawal/${deposit.id}`">
-              <v-icon left small>fa-cloud-download-alt</v-icon>Withdraw Now</v-btn>
+
+            <v-tooltip v-if="!depositIsActive || !depositIsUpToAYear" top transition="scale-transition">
+              <v-btn slot="activator" :disabled="!depositIsActive || !depositIsUpToAYear" small color="primary" :to="`/make-withdrawal/${deposit.id}`">
+                <v-icon left small>fa-cloud-download-alt</v-icon>Withdraw Now</v-btn>
+                <span>Wait till Maturity Date</span>
+            </v-tooltip>
+            <v-btn v-else slot="activator" :disabled="!depositIsActive || !depositIsUpToAYear" small color="primary" :to="`/make-withdrawal/${deposit.id}`"><v-icon left small>fa-cloud-download-alt</v-icon>Withdraw Now</v-btn>
           </v-flex>
         </v-layout>
 
@@ -240,11 +245,12 @@ export default {
           (this.deposit.date_withdrawn - this.deposit.date_confirmed) /
           86400000
         )
+        if (noOfDays > 365) { noOfDays = 365 }
       } else if (this.deposit.date_confirmed) {
         noOfDays = Math.floor(
           (new Date() - this.deposit.date_confirmed) / 86400000
         )
-        if (noOfDays > 366) { noOfDays = 366 }
+        if (noOfDays > 365) { noOfDays = 365 }
       }
       const interest = amount * ratePerDay * noOfDays
 
@@ -291,8 +297,9 @@ export default {
 
   methods: {
     fetchData () {
+      const id = this.$route.query.deposit ? this.$route.query.deposit : this.$route.params.id
       this.$store.dispatch('fetchSpecificDeposit', {
-        id: this.$route.params.id
+        id
       })
     },
     numberToCurrencyFormat (n) {

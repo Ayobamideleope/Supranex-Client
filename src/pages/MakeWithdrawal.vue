@@ -126,7 +126,7 @@
               </v-list-tile>
               <v-list-tile v-if="deposit.date_confirmed">
                 <v-list-tile-content>Date Confirmed:</v-list-tile-content>
-                <v-list-tile-content class="align-end">{{ deposit.date_confirmed | moment().fromNow() }}</v-list-tile-content>
+                <v-list-tile-content class="align-end">{{ $moment(deposit.date_confirmed).fromNow() }}</v-list-tile-content>
               </v-list-tile>
             </v-list>
             <v-divider></v-divider>
@@ -242,7 +242,7 @@ export default {
 
       const ratePerDay = this.$store.getters.ratePerYear / 365
       let noOfDays = Math.floor((new Date() - this.deposit.date_confirmed) / 86400000)
-      if (noOfDays > 366) { noOfDays = 366 }
+      if (noOfDays > 365) { noOfDays = 365 }
 
       const interest = amount * ratePerDay * noOfDays
 

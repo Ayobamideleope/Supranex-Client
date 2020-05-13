@@ -45,15 +45,6 @@ Vue.config.productionTip = false
 let app
 
 auth.onAuthStateChanged(user => {
-  if (user) {
-    store.dispatch('signin', {
-      email: user.email,
-      emailVerified: user.emailVerified,
-      uid: user.uid,
-      providerData: user.providerData
-    })
-  }
-
   if (!app) {
     /* eslint-disable no-new */
     app = new Vue({
@@ -66,6 +57,15 @@ auth.onAuthStateChanged(user => {
       render (h) {
         return h(App)
       }
+    })
+  }
+
+  if (user) {
+    store.dispatch('signin', {
+      email: user.email,
+      emailVerified: user.emailVerified,
+      uid: user.uid,
+      providerData: user.providerData
     })
   }
 })

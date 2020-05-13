@@ -1,5 +1,5 @@
 <template>
-  <div class="hf-100">
+  <div class="h-100">
     <v-container fill-height>
       <v-layout wrap justify-center>
         <v-flex xs10 sm7 md5 lg4 class="d-flex justify-center align-center chlid-flex-none my-4">

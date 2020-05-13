@@ -106,9 +106,9 @@
           </v-flex>
 
           <v-flex xs12 class="text-xs-center mt-3">
-            <a href="#" class="px-3 py-2"><img src="/static/images/image-icons/facebook.png" class="footer__social-icon-img"></a>
-            <a href="#" class="px-3 py-2"><img src="/static/images/image-icons/twitter.png" class="footer__social-icon-img"></a>
-            <a href="#" class="px-3 py-2"><img src="/static/images/image-icons/instagram.png" class="footer__social-icon-img"></a>
+            <a href="https://web.facebook.com/Supranex-1812569118786104" target="_blank" class="px-3 py-2"><img src="/static/images/image-icons/facebook.png" class="footer__social-icon-img"></a>
+            <a href="https://twitter.com/SupranexA" target="_blank" class="px-3 py-2"><img src="/static/images/image-icons/twitter.png" class="footer__social-icon-img"></a>
+            <a href="https://www.instagram.com/supranexbitcoin/" target="_blank" class="px-3 py-2"><img src="/static/images/image-icons/instagram.png" class="footer__social-icon-img"></a>
           </v-flex>
         </v-layout>
       </v-container>

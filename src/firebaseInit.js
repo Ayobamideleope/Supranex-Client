@@ -1,4 +1,5 @@
-import firebase from 'firebase'
+import firebase from 'firebase/app'
+import 'firebase/auth'
 import 'firebase/firestore'
 import firebaseConfig from './firebaseConfig'
 
@@ -9,9 +10,8 @@ firestore.settings({
   timestampsInSnapshots: true
 })
 const auth = firebaseApp.auth()
-const storage = firebaseApp.storage()
 
 export {
   firestore as
-  default, auth, storage
+  default, auth
 }

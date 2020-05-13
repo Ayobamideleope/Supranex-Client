@@ -10,7 +10,7 @@
             </v-card-title>
             <v-divider dark class="flex-none"></v-divider>
             <v-card-text class="font-all-caps bg-transparent-dark flex-none">
-              Rejected Deposited
+              Rejected Deposits
             </v-card-text>
           </v-card>
         </v-flex>
@@ -77,7 +77,7 @@
                       <v-btn slot="activator" :disabled="!depositIsUpToAYear(props.item.date_confirmed)" small flat icon :to="`/make-withdrawal/${props.item.id}`">
                         <v-icon color="accent" small>fa-cloud-download-alt</v-icon>
                       </v-btn>
-                      <span>Withdraw</span>
+                      <span v-text="depositIsUpToAYear(props.item.date_confirmed) ? 'Withdraw' : 'Wait till Maturity Date'"></span>
                     </v-tooltip>
                   </td>
                 </template>
